@@ -1,0 +1,10 @@
+{
+    "file": "assets/song1.mp3",
+    "BPM" : 120.0,
+    "startTime" : 0,
+    "approachRate" : 0.5,
+    "drain" : 20,
+    "arrows": [ 
+            [0.0,0,0.0]
+        ]
+}

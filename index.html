@@ -28,8 +28,8 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="post.html">Sample Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="demos.html">Demos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="code.html">Code Description</a></li>
                     </ul>
                 </div>
             </div>
@@ -41,8 +41,10 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto">
                         <div class="site-heading">
-                            <h1>Clean Blog</h1>
-                            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                            <h1>Pi Day Night Funkin'</h1>
+                            <span class="subheading">A Memory Game Version of Simon Says</span>
+                            <span class="subheading">Bryce Roth (ber72), Jude Javillo (jij8), Ronin Sharma (rrs234)</span>
+                            <span class="subheading">ECE 5725 | Spring 2021 | Thursday Lab</span>
                         </div>
                     </div>
                 </div>
@@ -52,6 +54,60 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
+                    <h2>Project Overview</h2>
+
+                        <p>
+                            We recreated the video game Dance Dance Revolution (DDR) using the Raspberry Pi. DDR is a rhythm game where the player 
+                            uses their feet to press on four pressure pads when prompted by the game screen. The player earns points by pressing the 
+                            appropriate pad in rhythm with the song. We will create a dance platform that inputs pressure pad presses to the Raspberry Pi 
+                            and display LEDs underneath the pressure pads. The Raspberry Pi processes user input presses, determine the player’s score, 
+                            and display a game window to prompt the user to press the pressure pads, display the score, and navigate menus. The software of 
+                            the game was be programmed in Python using Pygame.
+                        </p>
+
+                        <p>
+                            This project is an embedded system. The game runs completely on the Raspberry Pi. The Raspberry Pi is powered by an external 
+                            power supply. The dance pad and monitor are connected to the Raspberry Pi so the complete setup is portable.
+
+                        </p>
+
+                    <h2>Project Elements</h2>
+
+                    <p>
+                        <ul>
+                            <li>Hardware</li>
+                                <ul>
+                                    <li>Dance Pad</li>
+                                    <li>LED Strips</li>
+                                    <li>Raspberry Pi</li>
+                                </ul>
+                            <li>Software (Python Modules)</li>
+                                <ul>
+                                    <li>PyGame</li>
+                                    <li>Time</li>
+                                    <li>RPi.GPIO</li>
+                                </ul>
+                        </ul>
+                    </p>
+
+                    <h2>Bill of Materials</h2>
+
+                    <p>
+                        <ul>
+                            <li>Dance Pad Materials</li>
+                                <ul>
+                                    <li>4' x 8' sheet of 0.5" plywood</li>
+                                </ul>
+                            <li>Raspberry Pi (not counted)</li>
+                            <li>LED Strips (had beforehand)</li>
+                            <li>Electrical Components from Labs (not counted)</li>
+                                <ul>
+                                    <li>Breadboard</li>
+                                    <li>Wires</li>
+                                </ul>
+                        </ul>
+                    </p>
+    
                     <div class="post-preview">
                         <a href="post.html">
                             <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>

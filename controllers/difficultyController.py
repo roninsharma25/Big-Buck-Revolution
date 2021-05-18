@@ -38,7 +38,7 @@ class DifficultyController():
         self.font = pygame.font.Font(None, 40)
         self.bbbImages = []
         for file in BBB_IMAGES:
-            img = pygame.transform.scale(pygame.image.load(file), SIZE)
+            img = pygame.transform.scale(pygame.image.load(file), BBB_IMAGE_SIZE)
             self.bbbImages.append(img)
 
     def start(self, song):
@@ -77,7 +77,7 @@ class DifficultyController():
             button.draw(view, dt)
 
         for i in range(len(self.bbbImages)):
-            view.blit(self.bbbImages[i], self.bbbImages[i].get_rect(BBB_IMAGE_POS[i]))
+            view.blit(self.bbbImages[i], self.bbbImages[i].get_rect(center = BBB_IMAGE_POS[i]))
         
         text = self.font.render("???", True, WHITE)
-        view.blit(text, text.get_rect(BBB_TEXT_POS))
+        view.blit(text, text.get_rect(center = BBB_TEXT_POS))

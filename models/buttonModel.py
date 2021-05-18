@@ -30,6 +30,7 @@ class Button():
                 (self.text_rect.x - 64, position[1]))
         self.highlighted = False
         self.selected = False
+        self.position = position
 
     def setHighlighted(self, highlighted):
         self.highlighted = highlighted
@@ -51,5 +52,5 @@ class Button():
         font = pygame.font.Font(None, 40)
         self.text_highlighted = font.render(label, True, BLUE)
         self.text_normal = font.render(label, True, WHITE)
-        self.text_rect = self.text_normal.get_rect(center=position)
+        self.text_rect = self.text_normal.get_rect(center=self.position)
 

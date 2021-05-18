@@ -69,7 +69,7 @@ class Game():
             self.updateStateSelectScreen(dt)
         if self.state == STATE_SINGLEPLAYER:
             self.updateStateSingleplayer(dt)
-        if self.state = STATE_DIFFICULTY:
+        if self.state == STATE_DIFFICULTY:
             self.updateStateDifficulty(dt)
         if self.state == STATE_EDITOR:
             self.updateStateEditor(dt)
@@ -109,7 +109,7 @@ class Game():
             #self.editController.start()
         if self.menuController.exitCode != -1:
             self.state = STATE_SELECTSCREEN
-            self.selectController.start(self.menuController.exitCode == EXIT_LEVELEDITOR)
+            self.selectController.start(self.menuController.exitCode == MenuController.EXIT_LEVELEDITOR)
 
     def updateStateSingleplayer(self, dt):
         self.gameController.update(self.inputController, dt)
@@ -140,7 +140,7 @@ class Game():
         elif self.difficultyController.exitCode != -1:
             if self.selectController.levelSelect:
                 self.state = STATE_EDITOR
-                self.editController.start(self.difficultController.song, self.difficultyController.exitCode == 0)
+                self.editController.start(self.difficultyController.song, self.difficultyController.exitCode == 0)
             else:
                 self.state = STATE_SINGLEPLAYER
                 self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0)

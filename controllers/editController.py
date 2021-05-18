@@ -46,6 +46,7 @@ class EditController():
 
         pygame.mixer.init()
         json = SONGS[index][1]
+        self.index = index
         self.fileName = parseSong("jsons/" + json)[1]
         playMusic(self.fileName, pygame.mixer)
 
@@ -101,7 +102,7 @@ class EditController():
             with open("jsons/createdLevel.json", "w") as f:
                 json.dump(data, f)
 
-            self.newLevel = "jsons/createdLevel.json"
+            self.newLevel = "createdLevel.json"
 
     def draw(self, view, dt):
         """

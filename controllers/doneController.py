@@ -39,6 +39,7 @@ class DoneController():
         self.buttons[self.selected].setSelected(True)
         self.enterName = False
         self.nameSet = False
+        self.font = pygame.font.Font(None, 40)
     
     def start(self, score):
         # Load the scores and names from a file
@@ -128,7 +129,7 @@ class DoneController():
             button.draw(view, dt)
         
         text = self.font.render("Leaderboard", True, WHITE)
-        view.blit(text, text.get_rect(LEADERBOARD_TEXT_POS))
+        view.blit(text, text.get_rect(center = LEADERBOARD_TEXT_POS))
 
         count = 0
         for entry in self.leaderboardEntries:

@@ -38,7 +38,7 @@ class GameController():
         # Game objects
         self.song = None
 
-    def start(self, index, BBB = False, newLevel = (False, "jsons/createdLevel.json")):
+    def start(self, index, BBB = False, newLevel = (False, "createdLevel.json")):
         """
         Starts the game
         """

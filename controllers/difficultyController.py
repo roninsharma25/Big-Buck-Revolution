@@ -9,11 +9,6 @@ from inputController import *
 from constants import *
 import pygame
 
-BBB_IMAGES = ["assets/BBB/BBB" + str(i) + ".jpg" for i in range(1, 5)]
-BBB_IMAGE_SIZE = (150, 150)
-BBB_IMAGE_POS = [(80, 235), (80, 395), (560, 235), (560, 395)]
-BBB_TEXT_POS = (320, 200)
-
 class DifficultyController():
     """
     Menu Controller is a controller that handles updating and drawing the screen
@@ -25,10 +20,17 @@ class DifficultyController():
         Instantiates a new menu
         """
         self.logo = pygame.image.load("assets/logo.png")
-        self.buttons = [
-            Button("Yes", (320, 300)),
-            Button("No", (320, 400))
-        ]
+        if LARGE:
+            self.buttons = [
+                Button("Yes", (960, 700)),
+                Button("No", (960, 950))
+            ]
+        else:
+            self.buttons = [
+                Button("Yes", (320, 300)),
+                Button("No", (320, 400))
+            ]
+
         self.exitCode = -1
         self.selected = 0
         self.buttons[self.selected].setSelected(True)

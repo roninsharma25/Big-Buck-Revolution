@@ -6,9 +6,8 @@
 
 from models.buttonModel import Button
 from inputController import *
+from constants import *
 import pygame
-
-buttonPos = [(320, 200), (320, 300), (320, 400)]
 
 class SelectController():
     """
@@ -21,7 +20,12 @@ class SelectController():
         Instantiates a new menu
         """
         self.logo = pygame.image.load("assets/logo.png")
-        self.buttons = [Button(SONGS[i][0], (320, 200 + 75 * i)) for i in range(len(SONGS))]
+
+        if LARGE:
+            self.buttons = [Button(SONGS[i][0], (960, 450 + 250 * i)) for i in range(len(SONGS))]
+        else:
+            self.buttons = [Button(SONGS[i][0], (320, 200 + 75 * i)) for i in range(len(SONGS))]
+        
         self.exitCode = -1
         self.selected = 0
         self.buttons[self.selected].setSelected(True)

@@ -54,10 +54,10 @@ class GameController():
             json = SONGS[index][1]
         print(json)
         self.song, self.fileName, self.approachRate, self.drain, self.bpm = parseSong("jsons/" + json)
-        self.stationaryArrows = createArrows(self.song, "assets/arrow.png", (50, 50), True)
-        self.pressedArrows = createArrows(self.song, "assets/arrow_outline.png", (50, 50), True)
+        self.stationaryArrows = createArrows(self.song, "assets/arrow.png", ARROW_SIZE, True)
+        self.pressedArrows = createArrows(self.song, "assets/arrow_outline.png", ARROW_SIZE, True)
         self.pressedArrowsDisplay = [False, False, False, False]
-        self.arrows = createArrows(self.song, "assets/arrow.png", (50, 50), approachRate = self.approachRate,
+        self.arrows = createArrows(self.song, "assets/arrow.png", ARROW_SIZE, approachRate = self.approachRate,
                                     drain = self.drain, bpm = self.bpm)
         playMusic(self.fileName, pygame.mixer)
 
@@ -67,7 +67,7 @@ class GameController():
         self.correct = False
         self.timeOffset = 0
         
-        # Give more time after if there is a second player
+        # Give more time after if there is a second player - CHANGE
         if (anotherGame):
             self.extraTime = 5 #15
         else:

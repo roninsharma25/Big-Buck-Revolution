@@ -6,8 +6,65 @@
 
 # Game Info
 NAME = "Big Buck Revolution"
-SIZE = (640, 480) # (1920, 1080)
 FPS = 60.0
+
+LARGE = False # True for big and False for small
+
+# Game constants
+if LARGE:
+        SIZE = (1920, 1080)
+        BOTTOM = 1000
+
+        # Arrow locations
+        ARROW_LEFT = (100, -50)
+        ARROW_DOWN = (200, -50)
+        ARROW_UP = (300, -50)
+        ARROW_RIGHT = (400, -50)
+
+        # Input press offsets
+        OFFSET = 60
+
+        ARROW_SIZE = (150, 150)
+        LOGO_BOTTOM = 400
+
+        BBB_IMAGE_SIZE = (450, 450)
+        BBB_IMAGE_POS = [(80, 235), (80, 700), (1400, 235), (1400, 700)]
+        BBB_TEXT_POS = (960, 200)
+
+        # Done controller
+        NAME_BUTTON = (1380, 435)
+        LEADERBOARD_TEXT_POS = (1530, 400)
+        LEADERBOARD_CHANGE = 90
+        WINNER_TEXT_POS = (640, 380)
+        WINNER_TEXT_SCORE = (640, 410)
+
+else:
+        SIZE = (640, 480)
+        BOTTOM = 400
+
+        # Arrow locations
+        ARROW_LEFT = (50, -50)
+        ARROW_DOWN = (100, -50)
+        ARROW_UP = (150, -50)
+        ARROW_RIGHT = (200, -50)
+
+        # Input press offsets
+        OFFSET = 30
+
+        ARROW_SIZE = (50, 50)
+        LOGO_BOTTOM = 150
+
+        BBB_IMAGE_SIZE = (150, 150)
+        BBB_IMAGE_POS = [(80, 235), (80, 395), (560, 235), (560, 395)]
+        BBB_TEXT_POS = (320, 200)
+
+        # Done controller
+        NAME_BUTTON = (450, 235)
+        LEADERBOARD_TEXT_POS = (500, 210)
+        LEADERBOARD_CHANGE = 30
+        WINNER_TEXT_POS = (210, 180)
+        WINNER_TEXT_SCORE = (210, 210)
+
 
 # States
 STATE_MENU = 0
@@ -17,9 +74,8 @@ STATE_DIFFICULTY = 3
 STATE_EDITOR = 4
 STATE_DONE = 5
 
-# Game constants
-BOTTOM = 400
-PROTRAIT = 200
+# BBB Images
+BBB_IMAGES = ["assets/BBB/BBB" + str(i) + ".jpg" for i in range(1, 5)]
 
 # Colors
 BLACK = 0,0,0
@@ -113,15 +169,6 @@ LED_BUTTONS = {
         "down": (R_DOWN, G_DOWN, B_DOWN),
         "up": (R_UP, G_UP, B_UP)
 }
-
-# Arrow locations
-ARROW_LEFT = (50, -50)
-ARROW_DOWN = (100, -50)
-ARROW_UP = (150, -50)
-ARROW_RIGHT = (200, -50)
-
-# Input press offsets
-OFFSET = 30
 
 # Score
 HIT_INCREMENT = 10

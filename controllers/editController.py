@@ -30,8 +30,8 @@ class EditController():
         self.selected = 0
         self.should_exit = False
         self.flag = False
-        self.stationaryArrows = createArrows("", "assets/arrow.png", (50, 50), flag = True)
-        self.pressedArrows = createArrows("", "assets/arrow_outline.png", (50, 50), flag = True)
+        self.stationaryArrows = createArrows("", "assets/arrow.png", ARROW_SIZE, flag = True)
+        self.pressedArrows = createArrows("", "assets/arrow_outline.png", ARROW_SIZE, flag = True)
         self.pressedArrowsDisplay = [False, False, False, False]
         self.fileName = "jsons/doitagain.json"
         self.newLevel = "jsons/createdLevel.json"
@@ -61,7 +61,7 @@ class EditController():
 
         if input.pressed_left():
             self.pressedArrowsDisplay[0] = True
-            arrow = Arrow("assets/arrow.png", (50, 50), posDict[0], noteTime = self.elapsedTime, 
+            arrow = Arrow("assets/arrow.png", ARROW_SIZE, posDict[0], noteTime = self.elapsedTime, 
                     direction = 1, bpm = 120, approachRate = 0.5)
             self.movingArrows.append(arrow)
         elif input.released_left():
@@ -69,7 +69,7 @@ class EditController():
 
         if input.pressed_down():
             self.pressedArrowsDisplay[1] = True
-            arrow = Arrow("assets/arrow.png", (50, 50), posDict[1], noteTime = self.elapsedTime, 
+            arrow = Arrow("assets/arrow.png", ARROW_SIZE, posDict[1], noteTime = self.elapsedTime, 
                     direction = 2, bpm = 120, approachRate = 0.5)
             self.movingArrows.append(arrow)
         elif input.released_down():
@@ -77,7 +77,7 @@ class EditController():
 
         if input.pressed_up():
             self.pressedArrowsDisplay[2] = True
-            arrow = Arrow("assets/arrow.png", (50, 50), posDict[2], noteTime = self.elapsedTime, 
+            arrow = Arrow("assets/arrow.png", ARROW_SIZE, posDict[2], noteTime = self.elapsedTime, 
                     direction = 3, bpm = 120, approachRate = 0.5)
             self.movingArrows.append(arrow)
         elif input.released_up():
@@ -85,7 +85,7 @@ class EditController():
 
         if input.pressed_right():
             self.pressedArrowsDisplay[3] = True
-            arrow = Arrow("assets/arrow.png", (50, 50), posDict[3], noteTime = self.elapsedTime, 
+            arrow = Arrow("assets/arrow.png", ARROW_SIZE, posDict[3], noteTime = self.elapsedTime, 
                     direction = 4, bpm = 120, approachRate = 0.5)
             self.movingArrows.append(arrow)
         elif input.released_right():
@@ -118,7 +118,7 @@ class EditController():
 
         for arrow in self.movingArrows:
             arrow.update(self.elapsedTime, True)
-            if arrow.rect.y > 150: # Don't display arrows on top of the logo
+            if arrow.rect.y > LOGO_BOTTOM: # Don't display arrows on top of the logo
                 arrow.draw(view)
 
         count = 0

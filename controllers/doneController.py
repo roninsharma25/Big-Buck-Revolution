@@ -11,11 +11,6 @@ import pygame
 import json
 import operator
 
-NAME_BUTTON = (450, 235)
-LEADERBOARD_TEXT_POS = (500, 210)
-WINNER_TEXT_POS = (210, 180)
-WINNER_TEXT_SCORE = (210, 210)
-
 class DoneController():
     """
     Menu Controller is a controller that handles updating and drawing the screen
@@ -31,11 +26,19 @@ class DoneController():
         Instantiates a new menu
         """
         self.logo = pygame.image.load("assets/logo.png")
-        self.buttons = [
-            Button("Main Menu", (210, 250)),
-            Button("Enter Name", (210, 350)),
-            Button("Quit", (210, 450))
-        ]
+
+        if LARGE:
+            self.buttons = [
+                Button("Main Menu", (640, 450)),
+                Button("Enter Name", (640, 700)),
+                Button("Quit", (640, 950))
+            ]
+        else:
+            self.buttons = [
+                Button("Main Menu", (210, 250)),
+                Button("Enter Name", (210, 350)),
+                Button("Quit", (210, 450))
+            ]
         self.exitCode = -1
         self.selected = 0
         self.buttons[self.selected].setSelected(True)
@@ -155,7 +158,7 @@ class DoneController():
             entryButton = entry[0].render(entryText, True, WHITE)
             entryRect = entryButton.get_rect(topleft = (NAME_BUTTON[0], NAME_BUTTON[1] + count))
             view.blit(entryButton, entryRect)
-            count += 30
+            count += LEADERBOARD_CHANGE
 
         # Display winner if multiplayer
         if (self.player1Score != -1):

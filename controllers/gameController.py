@@ -34,11 +34,15 @@ class GameController():
         self.arrows = None
         self.correct = False
         self.timeOffset = 0
+        self.extraTime = 10 # Number of seconds the game window will remain aften the song ends
 
         # Game objects
         self.song = None
 
-    def start(self, index, BBB = False, newLevel = (False, "createdLevel.json")):
+        # Multiplayer
+        self.anotherGame = False
+
+    def start(self, index, BBB = False, newLevel = (False, "createdLevel.json"), anotherGame = False):
         """
         Starts the game
         """
@@ -48,6 +52,7 @@ class GameController():
             json = newLevel[1]
         else:
             json = SONGS[index][1]
+        print(json)
         self.song, self.fileName, self.approachRate, self.drain, self.bpm = parseSong("jsons/" + json)
         self.stationaryArrows = createArrows(self.song, "assets/arrow.png", (50, 50), True)
         self.pressedArrows = createArrows(self.song, "assets/arrow_outline.png", (50, 50), True)
@@ -61,6 +66,12 @@ class GameController():
         self.elapsedTime = self.currentTime - self.startTime
         self.correct = False
         self.timeOffset = 0
+        
+        # Give more time after if there is a second player
+        if (anotherGame):
+            self.extraTime = 15
+        else:
+            self.extraTime = 10
 
         # Start and end indicies for active arrows
         self.startIndex = 0
@@ -70,6 +81,9 @@ class GameController():
         self.font = pygame.font.Font(None, 40)
         self.score = 0
         self.multiplier = 1
+
+        # Multiplayer
+        self.anotherGame = anotherGame
 
         # Exit
         self.should_exit = False
@@ -146,10 +160,12 @@ class GameController():
                 arrow.noteTime += self.timeOffset
             self.correct = False
             self.timeOffset = 0
+            print("CHANGED")
 
         # End game
-        if self.elapsedTime > self.lastArrowTime + 1:
+        if self.elapsedTime > self.lastArrowTime + self.extraTime:
             self.done = True
+            pygame.mixer.music.stop()
 
     def draw(self, view, dt):
         """
@@ -171,9 +187,11 @@ class GameController():
             count += 1
 
             # CORRECT
-            self.timeOffset = abs(arrow.noteTime - self.elapsedTime)
-            if (self.timeOffset > 1): # Correct if notes are 1 second off
-                self.correct = True
+            if (abs(arrow.getY() - BOTTOM) <= OFFSET):
+                self.timeOffset = arrow.noteTime - self.elapsedTime
+                if (abs(self.timeOffset) > 1): # Correct if notes are 1 second off
+                    self.correct = True
+                    print("CHANGE")
 
         count = 0
         for arrow in self.pressedArrows:

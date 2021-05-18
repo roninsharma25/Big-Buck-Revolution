@@ -62,12 +62,12 @@ COLORS = ["off", "red", "orange", "yellow", "lime",
         "white"]
 
 # Panic button input pin
-IN_QUIT  = 26
+IN_QUIT  = 17 #26
 
 # Pressure Pad input pins
-IN_LEFT  = 5
-IN_RIGHT = 19
-IN_DOWN  = 6
+IN_LEFT  = 22 #5
+IN_RIGHT = 23 #19
+IN_DOWN  = 27 #6
 IN_UP    = 13
 
 # LED output pins
@@ -75,7 +75,7 @@ OUT_LEFT  = 12
 OUT_RIGHT = 21
 OUT_DOWN  = 16
 OUT_UP    = 20
-BACK = 26
+BACK = 17 #26 -- DUPLICATE of IN_QUIT
 INPUT_PINS = [IN_LEFT, IN_RIGHT, IN_DOWN, IN_UP, BACK]
 
 # Left LED output pins
@@ -90,12 +90,12 @@ B_RIGHT = 24
 
 # Down LED output pin
 R_DOWN = 4
-G_DOWN = 17
-B_DOWN = 27
+G_DOWN = 26 #17
+B_DOWN = 6 #27
 
 # Up LED output pins
-R_UP = 22
-G_UP = 23
+R_UP = 5 #22
+G_UP = 19 #23
 B_UP = 18
 
 # All LED output pins
@@ -130,7 +130,7 @@ MISSED = 5
 
 # Songs
 SONGS = [("Do It Again", "doitagain.json"), ("Down with the Sickness", "example.json"), 
-        ("S.O.M.P", "nextLevel.json")]
+        ("S.O.M.P", "nextLevel.json"), ("You Spin Me Round", "test.json")]
 
 # Leaderboard
 LEADERBOARD_JSON = "jsons/leaderboard.json"

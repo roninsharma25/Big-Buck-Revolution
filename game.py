@@ -44,7 +44,6 @@ class Game():
         prev = time.time()
         curr = time.time()
         while not InputController.should_quit:
-
             # Time increments
             time.sleep(1/FPS)
             prev = curr
@@ -107,17 +106,30 @@ class Game():
         #elif self.menuController.exitCode == MenuController.EXIT_LEVELEDITOR:
             #self.state = STATE_EDITOR
             #self.editController.start()
-        if self.menuController.exitCode != -1:
+        exitCode = self.menuController.exitCode
+        if exitCode != -1:
             self.state = STATE_SELECTSCREEN
-            self.selectController.start(self.menuController.exitCode == MenuController.EXIT_LEVELEDITOR)
+            if (exitCode == MenuController.EXIT_MULTIPLAYER): # Multiplayer
+                self.selectController.start(levelSelect = self.menuController.exitCode == MenuController.EXIT_LEVELEDITOR, mult = True)
+            else: # Single Player
+                self.selectController.start(self.menuController.exitCode == MenuController.EXIT_LEVELEDITOR)
 
     def updateStateSingleplayer(self, dt):
         self.gameController.update(self.inputController, dt)
         if self.gameController.should_exit:
             self.state = STATE_MENU
+            self.difficultyController.exitCode = -1
+            self.selectController.exitCode = -1
         elif self.gameController.done:
-            self.state = STATE_DONE
-            self.doneController.start(self.gameController.score)
+            if (self.gameController.anotherGame): # Multiplayer
+                self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, anotherGame = False)
+                self.doneController.player1Score = self.gameController.score
+            else:
+                self.state = STATE_DONE
+                self.difficultyController.exitCode = -1
+                self.selectController.exitCode = -1
+                self.gameController.done = False
+                self.doneController.start(self.gameController.score)
     
     def updateStateSelectScreen(self, dt):
         self.selectController.update(self.inputController, dt)
@@ -128,36 +140,40 @@ class Game():
         elif self.selectController.exitCode != -1:
             #self.state = STATE_SINGLEPLAYER
             #self.gameController.start(self.selectController.exitCode)
-            self.difficultyController.start(self.selectController.exitCode)
+            self.difficultyController.start(self.selectController.exitCode, mult = self.selectController.mult)
             self.state = STATE_DIFFICULTY
     
     def updateStateDifficulty(self, dt):
         self.difficultyController.update(self.inputController, dt)
         if self.difficultyController.should_exit:
-            self.state = STATE_SELECT_SCREEN
+            self.state = STATE_SELECTSCREEN
             self.difficultyController.exitCode = -1
             self.difficultyController.flag = False
+            self.difficultyController.should_exit = False
         elif self.difficultyController.exitCode != -1:
             if self.selectController.levelSelect:
                 self.state = STATE_EDITOR
-                self.editController.start(self.difficultyController.song, self.difficultyController.exitCode == 0)
+                self.editController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, mult = self.difficultyController.mult)
             else:
                 self.state = STATE_SINGLEPLAYER
-                self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0)
+                self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, anotherGame = self.difficultyController.mult)
 
     def updateStateEditor(self, dt):
         self.editController.update(self.inputController, dt)
         if self.editController.done:
             #self.state = STATE_MENU
             self.state = STATE_SINGLEPLAYER
-            self.gameController.start(self.editController.index, self.editController.bbb, (True, self.editController.newLevel))
+            self.editController.done = False
+            self.gameController.start(self.editController.index, self.editController.bbb, (True, self.editController.newLevel), anotherGame = self.editController.mult)
     
     def updateStateDone(self, dt):
         self.doneController.update(self.inputController, dt)
         if self.doneController.exitCode == DoneController.EXIT_MENU:
             self.state = STATE_MENU
+            self.doneController.player1Score = -1
         elif self.doneController.exitCode == DoneController.EXIT_QUIT:
             InputController.should_quit = True
+            self.doneController.player1Score = -1
 
 
 if __name__ == "__main__":

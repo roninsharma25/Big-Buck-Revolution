@@ -21,16 +21,18 @@ class SelectController():
         Instantiates a new menu
         """
         self.logo = pygame.image.load("assets/logo.png")
-        self.buttons = [Button(SONGS[i][0], (320, 200 + 100 * i)) for i in range(len(SONGS))]
+        self.buttons = [Button(SONGS[i][0], (320, 200 + 75 * i)) for i in range(len(SONGS))]
         self.exitCode = -1
         self.selected = 0
         self.buttons[self.selected].setSelected(True)
         self.should_exit = False
         self.flag = False
         self.levelSelect = False
+        self.mult = False
 
-    def start(self, levelSelect = False):
+    def start(self, levelSelect = False, mult = False):
         self.levelSelect = levelSelect
+        self.mult = mult
 
     def update(self, input, dt):
         """

@@ -13,7 +13,7 @@ import json
 import random
 
 posDict = {0: (ARROW_LEFT[0], BOTTOM), 1: (ARROW_DOWN[0], BOTTOM), 2: (ARROW_UP[0], BOTTOM), 3: (ARROW_RIGHT[0], BOTTOM)}
-MAXTIME = 5
+MAXTIME = 190 # UPDATE THIS
 
 class EditController():
     """
@@ -35,14 +35,16 @@ class EditController():
         self.pressedArrowsDisplay = [False, False, False, False]
         self.fileName = "jsons/doitagain.json"
         self.newLevel = "jsons/createdLevel.json"
+        self.mult = False
 
-    def start(self, index, bbb):
+    def start(self, index, bbb, mult = False):
         self.startTime = time.time()
         self.currentTime = time.time()
         self.elapsedTime = self.currentTime - self.startTime
         self.movingArrows = []
         self.done = False
         self.bbb = bbb
+        self.mult = mult
 
         pygame.mixer.init()
         json = SONGS[index][1]
@@ -98,6 +100,8 @@ class EditController():
                 data = json.load(f)
 
             data["arrows"] = [arrow.format() for arrow in self.movingArrows]
+            data["startTime"] = 0
+            data["BPM"] = 60
             print(data)
             with open("jsons/createdLevel.json", "w") as f:
                 json.dump(data, f)
@@ -114,7 +118,8 @@ class EditController():
 
         for arrow in self.movingArrows:
             arrow.update(self.elapsedTime, True)
-            arrow.draw(view)
+            if arrow.rect.y > 150: # Don't display arrows on top of the logo
+                arrow.draw(view)
 
         count = 0
         for arrow in self.pressedArrows:

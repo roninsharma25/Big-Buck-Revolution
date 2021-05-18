@@ -6,7 +6,7 @@
 
 # Game Info
 NAME = "Big Buck Revolution"
-SIZE = (640, 480)
+SIZE = (640, 480) # (1920, 1080)
 FPS = 60.0
 
 # States
@@ -62,12 +62,12 @@ COLORS = ["off", "red", "orange", "yellow", "lime",
         "white"]
 
 # Panic button input pin
-IN_QUIT  = 17 #26
+IN_QUIT  = 26 #17
 
 # Pressure Pad input pins
-IN_LEFT  = 22 #5
-IN_RIGHT = 23 #19
-IN_DOWN  = 27 #6
+IN_LEFT  = 5 #22
+IN_RIGHT = 19 #23
+IN_DOWN  = 6 #27
 IN_UP    = 13
 
 # LED output pins
@@ -90,12 +90,12 @@ B_RIGHT = 24
 
 # Down LED output pin
 R_DOWN = 4
-G_DOWN = 26 #17
-B_DOWN = 6 #27
+G_DOWN = 17 #26
+B_DOWN = 27 #6
 
 # Up LED output pins
-R_UP = 5 #22
-G_UP = 19 #23
+R_UP = 22 #5
+G_UP = 23 #19
 B_UP = 18
 
 # All LED output pins
@@ -130,7 +130,7 @@ MISSED = 5
 
 # Songs
 SONGS = [("Do It Again", "doitagain.json"), ("Down with the Sickness", "example.json"), 
-        ("S.O.M.P", "nextLevel.json"), ("You Spin Me Round", "test.json")]
+        ("S.O.M.P", "nextLevel.json"), ("You Spin Me Round", "round.json")]
 
 # Leaderboard
 LEADERBOARD_JSON = "jsons/leaderboard.json"

@@ -12,7 +12,7 @@ import json
 import operator
 
 NAME_BUTTON = (450, 235)
-LEADERBOARD_TEXT_POS = (490, 210)
+LEADERBOARD_TEXT_POS = (500, 210)
 WINNER_TEXT_POS = (210, 180)
 WINNER_TEXT_SCORE = (210, 210)
 
@@ -45,9 +45,10 @@ class DoneController():
         self.player1Score = -1
         self.winner = 1 # Player 1 wins
     
-    def start(self, score):
+    def start(self, score, song):
         # Load the scores and names from a file
         # {Name1: score1, name2: score2}
+        self.song = song
         with open(LEADERBOARD_JSON) as f:
             self.data = json.load(f)
 
@@ -64,8 +65,8 @@ class DoneController():
 
         # Font object, name, score
         self.leaderboardEntries = []
-        for name in self.data:
-            self.leaderboardEntries.append((pygame.font.Font(None, 40), name, self.data[name]))
+        for entry in self.data[song]:
+            self.leaderboardEntries.append((pygame.font.Font(None, 40), entry[0], entry[1]))
         self.leaderboardEntries = sorted(self.leaderboardEntries, key = operator.itemgetter(2), reverse = True)
         
         self.newEntryName = ["Enter Name"]
@@ -126,7 +127,7 @@ class DoneController():
                         self.leaderboardEntries = sorted(self.leaderboardEntries, key = operator.itemgetter(2), reverse = True)
                         
                         # Update json
-                        self.data["".join(self.newEntryName)] = self.newScore
+                        self.data[self.song].append(["".join(self.newEntryName), self.newScore])
 
                         with open(LEADERBOARD_JSON, "w") as f:
                             json.dump(self.data, f)

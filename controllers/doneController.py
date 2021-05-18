@@ -11,8 +11,13 @@ import pygame
 import json
 import operator
 
+<<<<<<< HEAD
 NAME_BUTTON = (450, 235)
 LEADERBOARD_TEXT_POS = (490, 210)
+=======
+NAME_BUTTON = (480, 250)
+LEADERBOARD_TEXT_POS = (470, 180)
+>>>>>>> 86d5ecd7e119e2ae473f7264a64e30ca7dbb0099
 WINNER_TEXT_POS = (210, 180)
 WINNER_TEXT_SCORE = (210, 210)
 
@@ -152,7 +157,7 @@ class DoneController():
         for entry in self.leaderboardEntries:
             entryText = str(entry[1]) + ": " + str(entry[2])
             entryButton = entry[0].render(entryText, True, WHITE)
-            entryRect = entryButton.get_rect(topleft = (NAME_BUTTON[0], NAME_BUTTON[1] + count))
+            entryRect = entryButton.get_rect(left = (NAME_BUTTON[0], NAME_BUTTON[1] + count))
             view.blit(entryButton, entryRect)
             count += 30
 
@@ -160,3 +165,9 @@ class DoneController():
         if (self.player1Score != -1):
             text = self.font.render("Winner: Player " + str(self.winner), True, WHITE)
             view.blit(text, text.get_rect(center = WINNER_TEXT_POS))
+<<<<<<< HEAD
+=======
+
+            text2 = self.font.render("Score: " + str([self.player1Score, self.newScore][self.winner-1]), True, WHITE)
+            view.blit(text2, text2.get_rect(center = WINNER_TEXT_SCORE))
+>>>>>>> 86d5ecd7e119e2ae473f7264a64e30ca7dbb0099

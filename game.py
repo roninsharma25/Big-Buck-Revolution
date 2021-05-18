@@ -126,9 +126,12 @@ class Game():
                 self.doneController.player1Score = self.gameController.score
             else:
                 self.state = STATE_DONE
+<<<<<<< HEAD
                 self.difficultyController.exitCode = -1
                 self.selectController.exitCode = -1
                 self.gameController.done = False
+=======
+>>>>>>> 86d5ecd7e119e2ae473f7264a64e30ca7dbb0099
                 self.doneController.start(self.gameController.score)
     
     def updateStateSelectScreen(self, dt):
@@ -163,7 +166,10 @@ class Game():
         if self.editController.done:
             #self.state = STATE_MENU
             self.state = STATE_SINGLEPLAYER
+<<<<<<< HEAD
             self.editController.done = False
+=======
+>>>>>>> 86d5ecd7e119e2ae473f7264a64e30ca7dbb0099
             self.gameController.start(self.editController.index, self.editController.bbb, (True, self.editController.newLevel), anotherGame = self.editController.mult)
     
     def updateStateDone(self, dt):

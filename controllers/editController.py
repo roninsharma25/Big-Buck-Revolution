@@ -101,7 +101,10 @@ class EditController():
 
             data["arrows"] = [arrow.format() for arrow in self.movingArrows]
             data["startTime"] = 0
+<<<<<<< HEAD
             data["BPM"] = 60
+=======
+>>>>>>> 86d5ecd7e119e2ae473f7264a64e30ca7dbb0099
             print(data)
             with open("jsons/createdLevel.json", "w") as f:
                 json.dump(data, f)

@@ -28,9 +28,11 @@ class SelectController():
         self.should_exit = False
         self.flag = False
         self.levelSelect = False
+        self.mult = False
 
-    def start(self, levelSelect = False):
+    def start(self, levelSelect = False, mult = False):
         self.levelSelect = levelSelect
+        self.mult = mult
 
     def update(self, input, dt):
         """

@@ -34,11 +34,15 @@ class GameController():
         self.arrows = None
         self.correct = False
         self.timeOffset = 0
+        self.extraTime = 10 # Number of seconds the game window will remain aften the song ends
 
         # Game objects
         self.song = None
 
-    def start(self, index, BBB = False, newLevel = (False, "createdLevel.json")):
+        # Multiplayer
+        self.anotherGame = False
+
+    def start(self, index, BBB = False, newLevel = (False, "createdLevel.json"), anotherGame = False):
         """
         Starts the game
         """
@@ -61,6 +65,12 @@ class GameController():
         self.elapsedTime = self.currentTime - self.startTime
         self.correct = False
         self.timeOffset = 0
+        
+        # Give more time after if there is a second player
+        if (anotherGame):
+            self.extraTime = 15
+        else:
+            self.extraTime = 10
 
         # Start and end indicies for active arrows
         self.startIndex = 0
@@ -70,6 +80,9 @@ class GameController():
         self.font = pygame.font.Font(None, 40)
         self.score = 0
         self.multiplier = 1
+
+        # Multiplayer
+        self.anotherGame = anotherGame
 
         # Exit
         self.should_exit = False
@@ -148,8 +161,9 @@ class GameController():
             self.timeOffset = 0
 
         # End game
-        if self.elapsedTime > self.lastArrowTime + 1:
+        if self.elapsedTime > self.lastArrowTime + self.extraTime:
             self.done = True
+            pygame.mixer.music.stop()
 
     def draw(self, view, dt):
         """

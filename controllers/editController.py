@@ -35,14 +35,16 @@ class EditController():
         self.pressedArrowsDisplay = [False, False, False, False]
         self.fileName = "jsons/doitagain.json"
         self.newLevel = "jsons/createdLevel.json"
+        self.mult = False
 
-    def start(self, index, bbb):
+    def start(self, index, bbb, mult = False):
         self.startTime = time.time()
         self.currentTime = time.time()
         self.elapsedTime = self.currentTime - self.startTime
         self.movingArrows = []
         self.done = False
         self.bbb = bbb
+        self.mult = mult
 
         pygame.mixer.init()
         json = SONGS[index][1]
@@ -98,6 +100,7 @@ class EditController():
                 data = json.load(f)
 
             data["arrows"] = [arrow.format() for arrow in self.movingArrows]
+            data["startTime"] = 0
             print(data)
             with open("jsons/createdLevel.json", "w") as f:
                 json.dump(data, f)

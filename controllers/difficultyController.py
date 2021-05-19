@@ -9,11 +9,6 @@ from inputController import *
 from constants import *
 import pygame
 
-BBB_IMAGES = ["assets/BBB/BBB" + str(i) + ".jpg" for i in range(1, 5)]
-BBB_IMAGE_SIZE = (150, 150)
-BBB_IMAGE_POS = [(150, 150), (150, 450), (400, 150), (400, 450)]
-BBB_TEXT_POS = (320, 250)
-
 class DifficultyController():
     """
     Menu Controller is a controller that handles updating and drawing the screen
@@ -25,24 +20,33 @@ class DifficultyController():
         Instantiates a new menu
         """
         self.logo = pygame.image.load("assets/logo.png")
-        self.buttons = [
-            Button("Yes", (220, 350)),
-            Button("No", (420, 350))
-        ]
+        if LARGE:
+            self.buttons = [
+                Button("Yes", (960, 700)),
+                Button("No", (960, 950))
+            ]
+        else:
+            self.buttons = [
+                Button("Yes", (320, 300)),
+                Button("No", (320, 400))
+            ]
+
         self.exitCode = -1
         self.selected = 0
         self.buttons[self.selected].setSelected(True)
         self.should_exit = False
         self.flag = False
         self.song = 0
+        self.mult = False
         self.font = pygame.font.Font(None, 40)
         self.bbbImages = []
         for file in BBB_IMAGES:
             img = pygame.transform.scale(pygame.image.load(file), BBB_IMAGE_SIZE)
             self.bbbImages.append(img)
 
-    def start(self, song):
+    def start(self, song, mult = False):
         self.song = song
+        self.mult = mult
 
     def update(self, input, dt):
         """

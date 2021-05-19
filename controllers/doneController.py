@@ -11,9 +11,6 @@ import pygame
 import json
 import operator
 
-NAME_BUTTON = (450, 250)
-LEADERBOARD_TEXT_POS = (450, 200)
-
 class DoneController():
     """
     Menu Controller is a controller that handles updating and drawing the screen
@@ -29,33 +26,56 @@ class DoneController():
         Instantiates a new menu
         """
         self.logo = pygame.image.load("assets/logo.png")
-        self.buttons = [
-            Button("Main Menu", (320, 200)),
-            Button("Enter Name", (320, 300)),
-            Button("Quit", (320, 400))
-        ]
+
+        if LARGE:
+            self.buttons = [
+                Button("Main Menu", (640, 450)),
+                Button("Enter Name", (640, 700)),
+                Button("Quit", (640, 950))
+            ]
+        else:
+            self.buttons = [
+                Button("Main Menu", (210, 250)),
+                Button("Enter Name", (210, 350)),
+                Button("Quit", (210, 450))
+            ]
         self.exitCode = -1
         self.selected = 0
         self.buttons[self.selected].setSelected(True)
         self.enterName = False
         self.nameSet = False
         self.font = pygame.font.Font(None, 40)
+        self.player1Score = -1
+        self.winner = 1 # Player 1 wins
     
-    def start(self, score):
+    def start(self, score, song):
         # Load the scores and names from a file
         # {Name1: score1, name2: score2}
+        self.song = song
         with open(LEADERBOARD_JSON) as f:
             self.data = json.load(f)
 
+        print("Player 1 Score:", self.player1Score)
+        print("Player 2 Score:", score)
+        # Determine the winner
+        if (self.player1Score != -1): # Multiplayer
+            if (self.player1Score >= score): # Player 1 won
+                self.newScore = self.player1Score
+                self.winner = 1
+            else:
+                self.newScore = score
+                self.winner = 2
+        else:
+            self.newScore = score
+
         # Font object, name, score
         self.leaderboardEntries = []
-        for name in self.data:
-            self.leaderboardEntries.append((pygame.font.Font(None, 40), name, self.data[name]))
-        self.leaderboardEntries = sorted(self.leaderboardEntries, key = operator.itemgetter(2))
+        for entry in self.data[song]:
+            self.leaderboardEntries.append((pygame.font.Font(None, 40), entry[0], entry[1]))
+        self.leaderboardEntries = sorted(self.leaderboardEntries, key = operator.itemgetter(2), reverse = True)
         
         self.newEntryName = ["Enter Name"]
         self.newEntryIndex = 0
-        self.newScore = score
         self.enterName = False
         self.nameSet = False
 
@@ -109,10 +129,10 @@ class DoneController():
                         self.enterName = False
                         self.nameSet = True
                         self.leaderboardEntries.append((pygame.font.Font(None, 40), "".join(self.newEntryName), self.newScore))
-                        self.leaderboardEntries = sorted(self.leaderboardEntries, key = operator.itemgetter(2))
+                        self.leaderboardEntries = sorted(self.leaderboardEntries, key = operator.itemgetter(2), reverse = True)
                         
                         # Update json
-                        self.data["".join(self.newEntryName)] = self.newScore
+                        self.data[self.song].append(["".join(self.newEntryName), self.newScore])
 
                         with open(LEADERBOARD_JSON, "w") as f:
                             json.dump(self.data, f)
@@ -124,12 +144,15 @@ class DoneController():
         """
         Draws buttons to view
         """
+        textScore = self.font.render("Score: " + str(self.newScore), True, WHITE)
+        view.blit(textScore, textScore.get_rect(center = WINNER_TEXT_SCORE))
+
         view.blit(self.logo, self.logo.get_rect())
         for button in self.buttons:
             button.draw(view, dt)
         
         text = self.font.render("Leaderboard", True, WHITE)
-        view.blit(text, text.get_rect(center = LEADERBOARD_TEXT_POS))
+        view.blit(text, text.get_rect(center= LEADERBOARD_TEXT_POS))
 
         count = 0
         for entry in self.leaderboardEntries:
@@ -137,4 +160,9 @@ class DoneController():
             entryButton = entry[0].render(entryText, True, WHITE)
             entryRect = entryButton.get_rect(topleft = (NAME_BUTTON[0], NAME_BUTTON[1] + count))
             view.blit(entryButton, entryRect)
-            count += 30
+            count += LEADERBOARD_CHANGE
+
+        # Display winner if multiplayer
+        if (self.player1Score != -1):
+            text = self.font.render("Winner: Player " + str(self.winner), True, WHITE)
+            view.blit(text, text.get_rect(center = WINNER_TEXT_POS))

@@ -6,8 +6,77 @@
 
 # Game Info
 NAME = "Big Buck Revolution"
-SIZE = (640, 480)
 FPS = 60.0
+
+LARGE = False # True for big and False for small
+
+# Game constants
+if LARGE:
+        SIZE = (1920, 1080)
+        BOTTOM = 1000
+
+        # Arrow locations
+        ARROW_LEFT = (100, -50)
+        ARROW_DOWN = (200, -50)
+        ARROW_UP = (300, -50)
+        ARROW_RIGHT = (400, -50)
+
+        # Input press offsets
+        OFFSET = 60
+
+        ARROW_SIZE = (150, 150)
+        LOGO_BOTTOM = 400
+
+        BBB_IMAGE_SIZE = (450, 450)
+        BBB_IMAGE_POS = [(80, 235), (80, 700), (1400, 235), (1400, 700)]
+        BBB_TEXT_POS = (960, 200)
+
+        # Done controller
+        NAME_BUTTON = (1380, 435)
+        LEADERBOARD_TEXT_POS = (1530, 400)
+        LEADERBOARD_CHANGE = 90
+        WINNER_TEXT_POS = (640, 380)
+        WINNER_TEXT_SCORE = (640, 410)
+
+        # Game displays
+        SCORE_BUTTON = (1920, 0)
+        MULTIPLIER_BUTTON = (1920, 50)
+        POINTS_RECEIVED_BUTTON = (1920, 100)
+        ACCURACY_BUTTON = (1920, 150)
+
+else:
+        SIZE = (640, 480)
+        BOTTOM = 400
+
+        # Arrow locations
+        ARROW_LEFT = (50, -50)
+        ARROW_DOWN = (100, -50)
+        ARROW_UP = (150, -50)
+        ARROW_RIGHT = (200, -50)
+
+        # Input press offsets
+        OFFSET = 30
+
+        ARROW_SIZE = (50, 50)
+        LOGO_BOTTOM = 150
+
+        BBB_IMAGE_SIZE = (150, 150)
+        BBB_IMAGE_POS = [(80, 235), (80, 395), (560, 235), (560, 395)]
+        BBB_TEXT_POS = (320, 200)
+
+        # Done controller
+        NAME_BUTTON = (450, 235)
+        LEADERBOARD_TEXT_POS = (500, 210)
+        LEADERBOARD_CHANGE = 30
+        WINNER_TEXT_POS = (210, 180)
+        WINNER_TEXT_SCORE = (210, 210)
+
+        # Game display
+        SCORE_BUTTON = (640, 0)
+        MULTIPLIER_BUTTON = (640, 30)
+        POINTS_RECEIVED_BUTTON = (640, 60)
+        ACCURACY_BUTTON = (640, 90)
+
 
 # States
 STATE_MENU = 0
@@ -17,9 +86,8 @@ STATE_DIFFICULTY = 3
 STATE_EDITOR = 4
 STATE_DONE = 5
 
-# Game constants
-BOTTOM = 400
-PROTRAIT = 200
+# BBB Images
+BBB_IMAGES = ["assets/BBB/BBB" + str(i) + ".jpg" for i in range(1, 5)]
 
 # Colors
 BLACK = 0,0,0
@@ -62,12 +130,12 @@ COLORS = ["off", "red", "orange", "yellow", "lime",
         "white"]
 
 # Panic button input pin
-IN_QUIT  = 26
+IN_QUIT  = 17 #26
 
 # Pressure Pad input pins
-IN_LEFT  = 5
-IN_RIGHT = 19
-IN_DOWN  = 6
+IN_LEFT  = 22 #5
+IN_RIGHT = 23 #19
+IN_DOWN  = 27 #6
 IN_UP    = 13
 
 # LED output pins
@@ -75,7 +143,7 @@ OUT_LEFT  = 12
 OUT_RIGHT = 21
 OUT_DOWN  = 16
 OUT_UP    = 20
-BACK = 26
+BACK = 17 #26 -- DUPLICATE of IN_QUIT
 INPUT_PINS = [IN_LEFT, IN_RIGHT, IN_DOWN, IN_UP, BACK]
 
 # Left LED output pins
@@ -90,12 +158,12 @@ B_RIGHT = 24
 
 # Down LED output pin
 R_DOWN = 4
-G_DOWN = 17
-B_DOWN = 27
+G_DOWN = 26 #17
+B_DOWN = 6 #27
 
 # Up LED output pins
-R_UP = 22
-G_UP = 23
+R_UP = 5 #22
+G_UP = 19 #23
 B_UP = 18
 
 # All LED output pins
@@ -114,15 +182,6 @@ LED_BUTTONS = {
         "up": (R_UP, G_UP, B_UP)
 }
 
-# Arrow locations
-ARROW_LEFT = (50, -50)
-ARROW_DOWN = (100, -50)
-ARROW_UP = (150, -50)
-ARROW_RIGHT = (200, -50)
-
-# Input press offsets
-OFFSET = 30
-
 # Score
 HIT_INCREMENT = 10
 ALMOST_INCREMENT = 5
@@ -130,7 +189,7 @@ MISSED = 5
 
 # Songs
 SONGS = [("Do It Again", "doitagain.json"), ("Down with the Sickness", "example.json"), 
-        ("S.O.M.P", "nextLevel.json")]
+        ("S.O.M.P", "nextLevel.json"), ("You Spin Me Round", "round.json")]
 
 # Leaderboard
 LEADERBOARD_JSON = "jsons/leaderboard.json"

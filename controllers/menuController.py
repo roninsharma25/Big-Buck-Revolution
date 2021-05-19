@@ -23,11 +23,20 @@ class MenuController():
         Instantiates a new menu
         """
         self.logo = pygame.image.load("assets/logo.png")
-        self.buttons = [
-            Button("Single Player", (320, 200)),
-            Button("Multiplayer", (320, 300)),
-            Button("Level Editor", (320, 400))
-        ]
+
+        if LARGE:
+            self.buttons = [
+                Button("Single Player", (960, 450)),
+                Button("Multiplayer", (960, 600)),
+                Button("Level Editor", (960, 850))
+            ]
+        else:
+            self.buttons = [
+                Button("Single Player", (320, 200)),
+                Button("Multiplayer", (320, 300)),
+                Button("Level Editor", (320, 400))
+            ]
+        
         self.exitCode = -1
         self.selected = 0
         self.buttons[self.selected].setSelected(True)

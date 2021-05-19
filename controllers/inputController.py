@@ -146,8 +146,9 @@ class InputController():
         """
         """
         if button == "rim":
-            print("TODO")
-            print(color)
+            #print("TODO")
+            #print(color)
+            pass
         else:
             for i in range(3):
                 self.pwm[LED_BUTTONS[button][i]].ChangeDutyCycle(LED_COLORS[color][i])

@@ -55,6 +55,8 @@ class DoneController():
         with open(LEADERBOARD_JSON) as f:
             self.data = json.load(f)
 
+        print("Player 1 Score:", self.player1Score)
+        print("Player 2 Score:", score)
         # Determine the winner
         if (self.player1Score != -1): # Multiplayer
             if (self.player1Score >= score): # Player 1 won

@@ -11,8 +11,6 @@ import time
 import json
 
 TIME_DELAY = 1
-SCORE_BUTTON = (0, 0)
-
 fileStart = "assets/BBB/frame_"
 fileEnd = "_delay-0.07s.png"
 
@@ -38,6 +36,11 @@ class GameController():
 
         # Game objects
         self.song = None
+        self.pointsReceived = 0
+        self.hitType = ""
+        self.accuracy = 0
+        self.totalHits = 0
+        self.totalNotes = 0
 
         # Multiplayer
         self.anotherGame = False
@@ -81,6 +84,13 @@ class GameController():
         self.font = pygame.font.Font(None, 40)
         self.score = 0
         self.multiplier = 1
+        self.pointsReceived = 0
+        self.accuracy = 0
+        self.totalHits = 0
+        self.totalNotes = 0
+
+        # Hit type
+        self.hitType = ""
 
         # Multiplayer
         self.anotherGame = anotherGame
@@ -154,13 +164,13 @@ class GameController():
             self.bbbCounter += 1
             self.bbbCounter %= len(self.bbbImages)
 
-        # CORRECT
-        if (self.correct):
-            for arrow in self.arrows:
-                arrow.noteTime += self.timeOffset
-            self.correct = False
-            self.timeOffset = 0
-            print("CHANGED")
+        # Timing correction
+        #if (self.correct):
+        #    for arrow in self.arrows:
+        #        arrow.noteTime += self.timeOffset
+        #    self.correct = False
+        #    self.timeOffset = 0
+        #    print("CHANGED")
 
         # End game
         if self.elapsedTime > self.lastArrowTime + self.extraTime:
@@ -186,12 +196,19 @@ class GameController():
             arrow.draw(view)
             count += 1
 
-            # CORRECT
-            if (abs(arrow.getY() - BOTTOM) <= OFFSET):
-                self.timeOffset = arrow.noteTime - self.elapsedTime
-                if (abs(self.timeOffset) > 1): # Correct if notes are 1 second off
-                    self.correct = True
-                    print("CHANGE")
+            # Timing correction
+            #if (abs(arrow.getY() - BOTTOM) <= OFFSET):
+            #    self.timeOffset = arrow.noteTime - self.elapsedTime
+            #    if (abs(self.timeOffset) > 1): # Correct if notes are 1 second off
+            #        self.correct = True
+            #        print("CHANGE")
+            
+            if (arrow.getY() >= (BOTTOM + OFFSET + 50) and arrow.getY() <= BOTTOM + 500):
+                arrow.delete()
+                self.hitType = " (missed)"
+                self.totalNotes += 1
+                self.pointsReceived = 0
+                self.multiplier = 1
 
         count = 0
         for arrow in self.pressedArrows:
@@ -202,8 +219,30 @@ class GameController():
         # Update score
         score_text = "Score: " + str(self.score)
         score_button = self.font.render(score_text, True, WHITE)
-        score_rect = score_button.get_rect(topleft = SCORE_BUTTON)
+        score_rect = score_button.get_rect(topright = SCORE_BUTTON)
         view.blit(score_button, score_rect)
+
+        # Update multiplier
+        mult_text = "Multiplier: " + str(self.multiplier)
+        mult_button = self.font.render(mult_text, True, WHITE)
+        mult_rect = mult_button.get_rect(topright = MULTIPLIER_BUTTON)
+        view.blit(mult_button, mult_rect)
+
+        # Update points received
+        tap_text = "Points Received: " + str(self.pointsReceived) + self.hitType
+        tap_button = self.font.render(tap_text, True, WHITE)
+        tap_rect = tap_button.get_rect(topright = POINTS_RECEIVED_BUTTON)
+        view.blit(tap_button, tap_rect)
+
+        # Update accuracy
+        if not self.totalNotes:
+            accuracy = 1
+        else:
+            accuracy = float(self.totalHits)/float(self.totalNotes)
+        acc_text = "Accuracy: " + str(round(accuracy * 100.0, 2)) + "%"
+        acc_button = self.font.render(acc_text, True, WHITE)
+        acc_rect = acc_button.get_rect(topright = ACCURACY_BUTTON)
+        view.blit(acc_button, acc_rect)
         
     def checkPlayerInput(self, dir):
         """
@@ -218,24 +257,30 @@ class GameController():
         else:
             print(abs(arrow.getY() - BOTTOM))
             if (abs(arrow.getY() - BOTTOM) <= OFFSET):
-                print("HIT")
-                self.score += self.multiplier * HIT_INCREMENT
+                self.hitType = " (perfect)"
+                self.totalHits += 1
+                self.totalNotes += 1
+                self.pointsReceived = self.multiplier * HIT_INCREMENT
+                self.score += self.pointsReceived
                 self.multiplier += 0.5
                 arrow.delete()
                 return "green"
             elif (abs(arrow.getY() - BOTTOM) <= OFFSET*2):
-                print("ALMOST")
-                self.score += self.multiplier * ALMOST_INCREMENT
+                self.hitType = " (almost)"
+                self.totalHits += 1
+                self.totalNotes += 1
+                self.pointsReceived = self.multiplier * ALMOST_INCREMENT
+                self.score += self.pointsReceived
                 self.multiplier += 0.25
                 arrow.delete()
                 return "blue"
             else:
-                print("MISSED")
-                self.score -= MISSED
+                self.hitType = " (missed)"
+                self.totalNotes += 1
+                self.pointsReceived = 0
                 self.multiplier = 1
                 arrow.delete()
                 return "red"
-            
 
     def closestArrow(self, dir):
         """

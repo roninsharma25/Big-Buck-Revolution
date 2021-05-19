@@ -38,6 +38,12 @@ if LARGE:
         WINNER_TEXT_POS = (640, 380)
         WINNER_TEXT_SCORE = (640, 410)
 
+        # Game displays
+        SCORE_BUTTON = (1920, 0)
+        MULTIPLIER_BUTTON = (1920, 50)
+        POINTS_RECEIVED_BUTTON = (1920, 100)
+        ACCURACY_BUTTON = (1920, 150)
+
 else:
         SIZE = (640, 480)
         BOTTOM = 400
@@ -64,6 +70,12 @@ else:
         LEADERBOARD_CHANGE = 30
         WINNER_TEXT_POS = (210, 180)
         WINNER_TEXT_SCORE = (210, 210)
+
+        # Game display
+        SCORE_BUTTON = (640, 0)
+        MULTIPLIER_BUTTON = (640, 30)
+        POINTS_RECEIVED_BUTTON = (640, 60)
+        ACCURACY_BUTTON = (640, 90)
 
 
 # States
@@ -118,12 +130,12 @@ COLORS = ["off", "red", "orange", "yellow", "lime",
         "white"]
 
 # Panic button input pin
-IN_QUIT  = 26 #17
+IN_QUIT  = 17 #26
 
 # Pressure Pad input pins
-IN_LEFT  = 5 #22
-IN_RIGHT = 19 #23
-IN_DOWN  = 6 #27
+IN_LEFT  = 22 #5
+IN_RIGHT = 23 #19
+IN_DOWN  = 27 #6
 IN_UP    = 13
 
 # LED output pins
@@ -131,7 +143,7 @@ OUT_LEFT  = 12
 OUT_RIGHT = 21
 OUT_DOWN  = 16
 OUT_UP    = 20
-BACK = 26 #17 -- DUPLICATE of IN_QUIT
+BACK = 17 #26 -- DUPLICATE of IN_QUIT
 INPUT_PINS = [IN_LEFT, IN_RIGHT, IN_DOWN, IN_UP, BACK]
 
 # Left LED output pins
@@ -146,12 +158,12 @@ B_RIGHT = 24
 
 # Down LED output pin
 R_DOWN = 4
-G_DOWN = 17 #26
-B_DOWN = 27 #6
+G_DOWN = 26 #17
+B_DOWN = 6 #27
 
 # Up LED output pins
-R_UP = 22 #5
-G_UP = 23 #19
+R_UP = 5 #22
+G_UP = 19 #23
 B_UP = 18
 
 # All LED output pins

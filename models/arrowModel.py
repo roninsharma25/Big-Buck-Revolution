@@ -66,7 +66,7 @@ class Arrow(pygame.sprite.Sprite):
         return self.rect.y
     
     def delete(self):
-        self.rect.y = BOTTOM + 100
+        self.rect.y = BOTTOM + 1000
     
     def format(self):
         return [self.noteTime, self.direction - 1, self.duration]

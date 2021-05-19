@@ -124,8 +124,8 @@ class Game():
             self.state = STATE_MENU
         elif self.gameController.done:
             if (self.gameController.anotherGame): # Multiplayer
-                self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, anotherGame = False)
                 self.doneController.player1Score = self.gameController.score
+                self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, anotherGame = False)
             else:
                 self.difficultyController.exitCode = -1
                 self.selectController.exitCode = -1
@@ -157,9 +157,15 @@ class Game():
             self.state = STATE_SELECTSCREEN
         elif self.difficultyController.exitCode != -1:
             if self.selectController.levelSelect:
+                self.difficultyController.exitCode = -1
+                self.difficultyController.flag = False
+                self.difficultyController.should_exit = False
                 self.state = STATE_EDITOR
                 self.editController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, mult = self.difficultyController.mult)
             else:
+                self.difficultyController.exitCode = -1
+                self.difficultyController.flag = False
+                self.difficultyController.should_exit = False
                 self.state = STATE_SINGLEPLAYER
                 self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, anotherGame = self.difficultyController.mult)
 

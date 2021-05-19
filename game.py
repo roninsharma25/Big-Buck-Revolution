@@ -157,17 +157,17 @@ class Game():
             self.state = STATE_SELECTSCREEN
         elif self.difficultyController.exitCode != -1:
             if self.selectController.levelSelect:
-                self.difficultyController.exitCode = -1
                 self.difficultyController.flag = False
                 self.difficultyController.should_exit = False
                 self.state = STATE_EDITOR
                 self.editController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, mult = self.difficultyController.mult)
-            else:
                 self.difficultyController.exitCode = -1
+            else:
                 self.difficultyController.flag = False
                 self.difficultyController.should_exit = False
                 self.state = STATE_SINGLEPLAYER
                 self.gameController.start(self.difficultyController.song, self.difficultyController.exitCode == 0, anotherGame = self.difficultyController.mult)
+                self.difficultyController.exitCode = -1
 
     def updateStateEditor(self, dt):
         self.editController.update(self.inputController, dt)

@@ -13,7 +13,7 @@ import json
 import random
 
 posDict = {0: (ARROW_LEFT[0], BOTTOM), 1: (ARROW_DOWN[0], BOTTOM), 2: (ARROW_UP[0], BOTTOM), 3: (ARROW_RIGHT[0], BOTTOM)}
-MAXTIME = 190 # UPDATE THIS
+MAXTIME = 190 # Players have up to 190 seconds
 
 class EditController():
     """

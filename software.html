@@ -192,8 +192,8 @@
 
                     <h5>Gameplay</h5>
 
-                    <img src = "assets/img/stats.png" style = "width: 400px; height: 300px; margin: 0px 0px 0px 150px;"" align = "left";>
-                    <img src = "assets/img/stats.png" style = "width: 400px; height: 300px; margin: 0px 0px 0px 150px;"" align = "right";>
+                    <img src = "assets/img/easyEx.png" style = "width: 250px; height: 250px; margin: 150px 0px 00px -275px;" align = "left";>
+                    <img src = "assets/img/challengeEx.png" style = "width: 250px; height: 250px; margin: 150px -250px 0px 0px;" align = "right";>
                     <p>
                         Based on the user input from the Input Controller, the Game Controller checks if the player pressed the correct arrow at the right time. Our implementation 
                         finds the closest arrow about the bottom of the screen based on the pressure pad. For example, if the player presses the left pressure pad, the Game Controller 
@@ -207,7 +207,7 @@
                         the statistics displayed during the game.
                     </p>
                     
-                    <img src = "assets/img/stats.png" style = "width: 400px; height: 300px; margin: 0px 0px 0px 150px;"" align = "center";>
+                    <img src = "assets/img/stats.png" style = "width: 400px; height: 300px; margin: 0px 0px 0px 150px;" align = "center";>
                     
                     <p>
                         At this point, the Game Controller notifies the Input Controller to display a certain color on the dance pad's LEDs. 
@@ -235,13 +235,18 @@
                         sorted in decreasing order.
                     </p>
 
-                    <img src = "assets/img/exLeaderboard.png" style = "width: 300px; height: 300px;">
+                    <img src = "assets/img/exLeaderboard.png" style = "width: 300px; height: 300px; margin: 0px 0px 0px 175px;" align = "center">
 
-                    <br>
-                    <br>
+                    <p>
+                      Here are examples of the entire Done Controller screen before and after the players submit their name and score.  
+                    </p>
+                    <img src = "assets/img/doneExBefore.png" style = "width: 300px; height: 300px; margin: 0px 100px 50px 0px;" align = "left">
+                    <img src = "assets/img/doneExAfter.png" style = "width: 300px; height: 300px; margin: 0px 0px 50px 0px;" align = "right">
+
 
                     <h4>Edit Controller</h4>
 
+                    <img src = "assets/img/levelEditor.png" style = "width: 250px; height: 250px; margin: 50px -250px 0px 0px;" align = "right";>
                     <p>
                         The Edit Controller handled the level editor. We created some levels ourselves, but also implemented a level editor to allow the player to create 
                         levels. This controller streamed the arrows the player was inputting. Specifically, it played the song the user selected, then the user was allowed 
@@ -297,6 +302,8 @@
                         We chose this implementation instead of creating a separate multiplayer state since it helped keep the number of states concise and didn't introduce unncessary 
                         complexity. Lastly, we had to save both players scores and compare the two to check which player one. This was calculated by the Done Controller.
                     </p>
+
+                    <img src = "assets/img/winnerEx.png" style = "width: 300px; height: 300px; margin: 0px 0px 0px 175px;" align = "center">
 
                 </div>
             </div>

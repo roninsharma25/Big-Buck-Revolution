@@ -41,7 +41,6 @@
                     <div class="col-lg-8 col-md-10 mx-auto">
                         <div class="page-heading">
                             <h1>Software Design</h1>
-                            <span class="subheading">Have questions? I have answers.</span>
                         </div>
                     </div>
                 </div>
@@ -71,14 +70,19 @@
                     <p>
                         The button model was used to add interactive buttons to the game. On some screens, players have the option to navigate between different 
                         options, and each option is a button. For example, on the menu screen, players select the game type, so each game type is a button. In the class, 
-                        for this model, there are attributes for the font, text, and text size. Additionally, when a player hovers over a button, it is highlighted. We have 
-                        additional attributes that store whether the button is highlighted. The methods <i>setHighlighted</i> and <i>setSelected</i> updated these attributes.
-                        In this class, we also had a draw method, which we will discuss in the Views section. Lastly, we had an <i>updateText</i> method that changed the text 
-                        of a button. This method was only used on one screen, but we still included it as a method to follow our modular design principle.
+                        for this model, there are attributes for the font, text, and text size. Additionally, when a player hovers over a button, it is highlighted.
+                    </p>
+                    <img src = "assets/img/highlightedText.png" style = "width: 200px; height: 200px; margin: -215px -200px 0px 0px;" align = "right";>
+                    <p>
+                        We have additional attributes that store whether the button is highlighted. The methods <i>setHighlighted</i> and <i>setSelected</i> 
+                        updated these attributes. In this class, we also had a draw method, which we will discuss in the Views section. Lastly, we had an 
+                        <i>updateText</i> method that changed the text of a button. This method was only used on one screen, but we still included it as a 
+                        method to follow our modular design principle.
                     </p>
 
                     <h4>Arrow Model</h4>
 
+                    <img src = "assets/img/arrow.png" style = "width: 100px; height: 100px; margin: 0px -125px 0px 0px;" align = "right";>
                     <p>
                         The arrow model was used to add stationary and moving arrows to the game. Each arrow had several attributes; we highlight the essential ones below.
                         <ul>
@@ -92,9 +96,6 @@
                         and y positions of individual arrows. We included a delete method to remove the arrow from the screen. Lastly, we added a format method which returned 
                         relevant information about an arrow (note time, direction) in an easily parsable list format.
                     </p>
-                    
-                    <img src = "assets/img/arrow.png" style = "width: 100px; height: 100px; margin: -40px 300px 0px 0px;" align = "right";>
-                    <p>Here is an example of an arrow:</p>
 
                     <h2>Controllers</h2>
 
@@ -125,6 +126,7 @@
 
                     <h4>Menu Controller</h4>
 
+                    <img src = "assets/img/mainMenu.png" style = "width: 250px; height: 250px; margin: 0px -275px 0px 0px;" align = "right";>
                     <p>
                         The Menu Controller handled updating the main menu screen based on user inputs. It had three buttons, 'Single Player', 'Multiplayer', and 'Level Editor'. 
                         When the player selected one of those options, this controller updated its <i>exitCode</i> attribute. We used this same convention in all our controllers 
@@ -132,6 +134,7 @@
                         will discuss later) transitioned to the next screen based on the attribute's value.
                     </p>
 
+                    <img src = "assets/img/songSelect.png" style = "width: 250px; height: 250px; margin: 0px 0px 0px -275px;" align = "left";>
                     <h4>Select Controller</h4>
 
                     <p>
@@ -140,6 +143,7 @@
                         ensure the game started with the selected song.
                     </p>
 
+                    <img src = "assets/img/difficultySelector.png" style = "width: 250px; height: 250px; margin: 0px -275px 0px 0px;" align = "right";>
                     <h4>Difficulty Controller</h4>
 
                     <p>
@@ -188,6 +192,8 @@
 
                     <h5>Gameplay</h5>
 
+                    <img src = "assets/img/stats.png" style = "width: 400px; height: 300px; margin: 0px 0px 0px 150px;"" align = "left";>
+                    <img src = "assets/img/stats.png" style = "width: 400px; height: 300px; margin: 0px 0px 0px 150px;"" align = "right";>
                     <p>
                         Based on the user input from the Input Controller, the Game Controller checks if the player pressed the correct arrow at the right time. Our implementation 
                         finds the closest arrow about the bottom of the screen based on the pressure pad. For example, if the player presses the left pressure pad, the Game Controller 
@@ -198,8 +204,10 @@
                         a multiplier. The multiplier starts at 1 and increments by 0.5 for every arrow that is a hit and increments by 0.25 for every arrow that almost hits. The player's 
                         score increment for each arrow is multiplied by the multiplier. When a player misses an arrow the multiplier is reset to 1, so players can achieve higher scores 
                         by stringing together several hits (or almost hits) in a row. Following the classification of hit/almost hit/miss, the arrow is deleted. Here are all 
-                        the statistics displayed during the game. ADD IMAGE
+                        the statistics displayed during the game.
                     </p>
+                    
+                    <img src = "assets/img/stats.png" style = "width: 400px; height: 300px; margin: 0px 0px 0px 150px;"" align = "center";>
                     
                     <p>
                         At this point, the Game Controller notifies the Input Controller to display a certain color on the dance pad's LEDs. 

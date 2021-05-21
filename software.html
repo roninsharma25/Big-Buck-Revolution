@@ -159,19 +159,105 @@
                     <h5>Game Setup</h5>
 
                     <p>
-                        Parse the song (explain JSON structure), create the stationary/pressed arrows (createArrows function), start music, start timer, initialize score and other display info, initialize
-                        background based on the difficulty, determine how long the game will continue for
+                        The fundamental aspect of the game is that arrows move down the screen and the player has to hit the corresponding pressure pad when an arrow reaches 
+                        the bottom. A major component is the timing of the arrows, since arrows reaching the bottom should correspond to beats in the song being player. We created 
+                        JSON files that stored this timing information for each song. Below is an example JSON file, with a subset of arrows for space purposes.
+                    </p>
+
+                    <p>
+                        The file field stores the MP3 audio file of the song. The BPM field stores the beats per minute in the song. The startTime field is the absolute time 
+                        at which the first note should reach the bottom. The approachRate field is how fast the arrows in the song should move down the screen. The arrows field is 
+                        a list that contains one entry (sublist) per arrow in the song. Each arrow sublist contains three values. First, it contains the time the arrow should reach the 
+                        bottom, relative to startTime. Second, it contains the direction of the arrow, which is represented as a number from 0-3 (0: left, 1: down, 2: up, 3: right). 
+                        Lastly, it contains the duration of the note. <i>Currently, the game only supports arrows with duration 0 (single pressure pad tap).</i> We analyzed each 
+                        song using Audacity to determine the beat times, and then created arrows at those times.
+                    </p>
+
+                    <p>
+                        In Game Controller, we use the <i>parseSong</i> function to extract all of this information from the JSON corresponding to the selected song, 
+                        and save it in different attributes. During this process, we convert all the relative arrow times to absolute times, based on the start time. 
+                        Next, we created our two lists of arrows: moving and stationary arrows. Our <i>createArrows</i> function took the parsed output and generated 
+                        the list of moving arrows. This function also created the stationary arrows, which were the four arrows at the bottom. The purpose of these 
+                        arrows was to specify when the user had to press one of the pressure pads. In other words, players had to hit the pressure pads when the moving 
+                        arrows overlapped with the stationary arrows. In addition to the four stationary arrows that always appeared on the screen, we also had outlines 
+                        of each of the four stationary arrows. These outlines were displayed when the player pressed one of the pressure pad. This provided the player with 
+                        a visual confirmation that the system was properly detecting their input. This controller then started the music, started the time, and initialized the score 
+                        and other game statistics that we tracked. It also determined the game background based on the difficulty.
                     </p>
 
                     <h5>Gameplay</h5>
 
                     <p>
-                        -Based on user input from the Input Controller, check if the user pressed the correct arrow at the right time
-                            -checkPlayerInput: 3 possibilities, leniency
-                        -Update score and other statistics
-                        -Stop the game after the song finishes (give a few second cooldown before exiting the game screen)
+                        Based on the user input from the Input Controller, the Game Controller checks if the player pressed the correct arrow at the right time. Our implementation 
+                        finds the closest arrow about the bottom of the screen based on the pressure pad. For example, if the player presses the left pressure pad, the Game Controller 
+                        will find the closest left arrow above the bottom. If that arrow is within a range off of the center of the stationary arrow, it will be classified as a hit, 
+                        and the player will get the maximum number of points. If the arrow is not within the range but is within twice the range, then it will be classified as 
+                        almost a hit, so the player will receive a reduced number of points. Otherwise, the player will receive no points. Based on if the arrow is classified as a hit, 
+                        almost hit, or miss, the Game Controller also updates the extra statistics (total hits, total notes, points received, total score). Additionally, we implemented 
+                        a multiplier. The multiplier starts at 1 and increments by 0.5 for every arrow that is a hit and increments by 0.25 for every arrow that almost hits. The player's 
+                        score increment for each arrow is multiplied by the multiplier. When a player misses an arrow the multiplier is reset to 1, so players can achieve higher scores 
+                        by stringing together several hits (or almost hits) in a row. Following the classification of hit/almost hit/miss, the arrow is deleted. Here are all 
+                        the statistics displayed during the game. ADD IMAGE
+                    </p>
+                    
+                    <p>
+                        At this point, the Game Controller notifies the Input Controller to display a certain color on the dance pad's LEDs. 
+                        Green represents a hit, blue represents an almost hit, and red represents a miss. Lastly, the Game Controller sets its <i>done</i> attribute 
+                        to be <i>True</i> after the last arrow hits the bottom, signalling the end of the game. Similar to the previous controllers, the main script, <i>game.py</i> 
+                        constantly reads this attribute and switches to the next stage of the game accordingly.
+
                     </p>
 
+                    <h4>Done Controller</h4>
+
+                    <p>
+                        The Done Controller handled the post-game screen, which displayed the player's score, showed the song's leaderboard, and allowed the player 
+                        to submit their name and score to the leaderboard. We used a JSON to store all of the leaderboard data for each song, which is depicted below.
+                    </p>
+
+                    <p>
+                        The JSON stored a separate leaderboard for each song. For each song, it stored three letters as the player's name along with their score. 
+                        When the game ended, the Done Controller loaded up the leaderboard for the song that the player selected and displayed all the previous scores. 
+                        We used one button, which started as 'Enter Name', for allowing the player to submit their name and score to the leaderboard. The player was able 
+                        to use the left and right pressure pad inputs to move between the three letters, and was able to use the up and down pressure pad inputs to cycle 
+                        between letters. Below is an example leaderboard. The leaderboard gets updated right after the player submits their name, and it is automatically 
+                        sorted in decreasing order.
+                    </p>
+
+                    <h4>Edit Controller</h4>
+
+                    <p>
+                        The Edit Controller handled the level editor. We created some levels ourselves, but also implemented a level editor to allow the player to create 
+                        levels. This controller streamed the arrows the player was inputting. Specifically, it played the song the user selected, then the user was allowed 
+                        to use the pressure pads to specify arrows. The Edit Controller saved the absolute times of each of these arrows along with the direction. Once the 
+                        song ended, the arrows were played back, with the song, so that the player could assess if there needed to be any changes to the level. The arrows 
+                        were saved to a JSON so the player had the freedom to edit the JSON file, specifically some arrow's note times, if they felt that some times 
+                        were off.
+                    </p>
+
+                    <h2>Views</h2>
+
+                    <p>
+                        Our game only had one view, since we were always drawing to the screen on the Pi or an external monitor. We had a draw method in each model. 
+                        As it sounds, this method drew the model to the screen. Each controller called a model's draw method based on what needed to be displayed on the 
+                        screen at a specific time. For example, on the Main Menu, there were three buttons. The draw method in the Menu Controller called the draw method 
+                        for each of the three buttons it instantiated.
+                    </p>
+
+                    <p>
+                        One optimization that we implemented was the number of arrows we drew during the game. We had one list of arrows, but it was fairly computationally 
+                        expensive to constantly draw each of these arrows. Therefore, we stored the indices of the first and last arrow that we wanted to draw. We constantly 
+                        updated these indices as the song progressed, but this made the code more efficient since it didn't loop through every arrow in the list.
+                    </p>
+
+                    <h2>Main Script - game.py</h2>
+
+                    <p>
+                        -Instante all controllers
+                        -Transition logic
+                        -Extension: multiplayer mode
+
+                    </p>
 
                 </div>
             </div>

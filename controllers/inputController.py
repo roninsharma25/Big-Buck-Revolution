@@ -151,4 +151,4 @@ class InputController():
             pass
         else:
             for i in range(3):
-                self.pwm[LED_BUTTONS[button][i]].ChangeDutyCycle(LED_COLORS[color][i])
+                self.pwm[LED_BUTTONS["left"][i]].ChangeDutyCycle(LED_COLORS[color][i])

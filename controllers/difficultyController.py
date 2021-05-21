@@ -76,7 +76,7 @@ class DifficultyController():
         """
         Draws buttons to view
         """
-        view.blit(self.logo, self.logo.get_rect())
+        view.blit(self.logo, self.logo.get_rect(center=(960, 79)))
         for button in self.buttons:
             button.draw(view, dt)
 

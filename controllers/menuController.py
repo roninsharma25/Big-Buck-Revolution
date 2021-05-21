@@ -28,7 +28,7 @@ class MenuController():
             self.buttons = [
                 Button("Single Player", (960, 450)),
                 Button("Multiplayer", (960, 600)),
-                Button("Level Editor", (960, 850))
+                Button("Level Editor", (960, 750))
             ]
         else:
             self.buttons = [

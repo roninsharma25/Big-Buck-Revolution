@@ -22,7 +22,7 @@ class SelectController():
         self.logo = pygame.image.load("assets/logo.png")
 
         if LARGE:
-            self.buttons = [Button(SONGS[i][0], (960, 450 + 250 * i)) for i in range(len(SONGS))]
+            self.buttons = [Button(SONGS[i][0], (960, 200 + 200 * i)) for i in range(len(SONGS))]
         else:
             self.buttons = [Button(SONGS[i][0], (320, 200 + 75 * i)) for i in range(len(SONGS))]
         

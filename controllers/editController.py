@@ -13,7 +13,7 @@ import json
 import random
 
 posDict = {0: (ARROW_LEFT[0], BOTTOM), 1: (ARROW_DOWN[0], BOTTOM), 2: (ARROW_UP[0], BOTTOM), 3: (ARROW_RIGHT[0], BOTTOM)}
-MAXTIME = 190 # Players have up to 190 seconds
+MAXTIME = 45 # Players have up to 190 seconds
 
 class EditController():
     """
@@ -47,9 +47,9 @@ class EditController():
         self.mult = mult
 
         pygame.mixer.init()
-        json = SONGS[index][1]
+        self.json = SONGS[index][1]
         self.index = index
-        self.fileName = parseSong("jsons/" + json)[1]
+        self.fileName = parseSong("jsons/" + self.json)[1]
         playMusic(self.fileName, pygame.mixer)
 
     def update(self, input, dt):
@@ -95,13 +95,13 @@ class EditController():
             self.done = True
 
             # Save json
-            jsons = [js[1] for js in SONGS]
-            with open("jsons/" + random.choice(jsons)) as f:
+            with open("jsons/" + self.json) as f:
                 data = json.load(f)
 
             data["arrows"] = [arrow.format() for arrow in self.movingArrows]
-            data["startTime"] = 0
+            data["startTime"] = -1.85
             data["BPM"] = 60
+            data["approachRate"] = 0.5
             print(data)
             with open("jsons/createdLevel.json", "w") as f:
                 json.dump(data, f)

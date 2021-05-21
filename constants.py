@@ -8,27 +8,28 @@
 NAME = "Big Buck Revolution"
 FPS = 60.0
 
-LARGE = False # True for big and False for small
+LARGE = True # True for big and False for small
 
 # Game constants
 if LARGE:
         SIZE = (1920, 1080)
-        BOTTOM = 1000
+        #SIZE = (1920, 1080)
+        BOTTOM = 900
 
         # Arrow locations
         ARROW_LEFT = (100, -50)
-        ARROW_DOWN = (200, -50)
-        ARROW_UP = (300, -50)
-        ARROW_RIGHT = (400, -50)
+        ARROW_DOWN = (300, -50)
+        ARROW_UP = (500, -50)
+        ARROW_RIGHT = (700, -50)
 
         # Input press offsets
-        OFFSET = 60
+        OFFSET = 120
 
         ARROW_SIZE = (150, 150)
         LOGO_BOTTOM = 400
 
         BBB_IMAGE_SIZE = (450, 450)
-        BBB_IMAGE_POS = [(80, 235), (80, 700), (1400, 235), (1400, 700)]
+        BBB_IMAGE_POS = [(225, 235), (225, 700), (1695, 235), (1695, 700)]
         BBB_TEXT_POS = (960, 200)
 
         # Done controller
@@ -130,12 +131,11 @@ COLORS = ["off", "red", "orange", "yellow", "lime",
         "white"]
 
 # Panic button input pin
-IN_QUIT  = 17 #26
-
+IN_QUIT  = 26 #17
 # Pressure Pad input pins
-IN_LEFT  = 22 #5
-IN_RIGHT = 23 #19
-IN_DOWN  = 27 #6
+IN_LEFT  = 5 #22
+IN_RIGHT = 19 #23
+IN_DOWN  = 6 #27
 IN_UP    = 13
 
 # LED output pins
@@ -143,7 +143,7 @@ OUT_LEFT  = 12
 OUT_RIGHT = 21
 OUT_DOWN  = 16
 OUT_UP    = 20
-BACK = 17 #26 -- DUPLICATE of IN_QUIT
+BACK = 26 #17 -- DUPLICATE of IN_QUIT
 INPUT_PINS = [IN_LEFT, IN_RIGHT, IN_DOWN, IN_UP, BACK]
 
 # Left LED output pins
@@ -158,12 +158,12 @@ B_RIGHT = 24
 
 # Down LED output pin
 R_DOWN = 4
-G_DOWN = 26 #17
-B_DOWN = 6 #27
+G_DOWN = 17 #26
+B_DOWN = 27 #6
 
 # Up LED output pins
-R_UP = 5 #22
-G_UP = 19 #23
+R_UP = 22 #5
+G_UP = 23 #19
 B_UP = 18
 
 # All LED output pins
@@ -188,8 +188,8 @@ ALMOST_INCREMENT = 5
 MISSED = 5
 
 # Songs
-SONGS = [("Do It Again", "doitagain.json"), ("Down with the Sickness", "example.json"), 
-        ("S.O.M.P", "nextLevel.json"), ("You Spin Me Round", "round.json")]
+SONGS = [("Do It Again", "doitagainbryce.json"), ("Down with the Sickness", "downlarge.json"), 
+        ("S.O.M.P", "somp.json"), ("You Spin Me Round", "spin.json")]
 
 # Leaderboard
 LEADERBOARD_JSON = "jsons/leaderboard.json"

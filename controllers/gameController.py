@@ -72,9 +72,9 @@ class GameController():
         
         # Give more time after if there is a second player - CHANGE
         if (anotherGame):
-            self.extraTime = 5 #15
+            self.extraTime = 15 #15
         else:
-            self.extraTime = 2 #10
+            self.extraTime = 10 #10
 
         # Start and end indicies for active arrows
         self.startIndex = 0

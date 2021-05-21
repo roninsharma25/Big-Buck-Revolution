@@ -58,9 +58,8 @@
                         models were arrows and buttons. Views display the models to the player, so we had draw methods for each of these models. 
                         In our project, we only had one view since we always drew models to the same screen and just varied the position.
                         The controllers updated the game state. We had a controller for each screen and each controller determined which models appeared 
-                        on each screen, where they were drawn, and how the player could interact with them.
-
-                        Here is the overall file system structure. In the following sections, we will explain this in more detail.
+                        on each screen, where they were drawn, and how the player could interact with them. In the following sections, we will explain 
+                        these aspects of our code.
                     </p>
 
                     <h2>Models</h2>
@@ -74,7 +73,6 @@
                         options, and each option is a button. For example, on the menu screen, players select the game type, so each game type is a button. In the class, 
                         for this model, there are attributes for the font, text, and text size. Additionally, when a player hovers over a button, it is highlighted. We have 
                         additional attributes that store whether the button is highlighted. The methods <i>setHighlighted</i> and <i>setSelected</i> updated these attributes.
-                        ADD IMAGES SHOWING HIGHLIGHTED/NOT HIGHLIGHTED
                         In this class, we also had a draw method, which we will discuss in the Views section. Lastly, we had an <i>updateText</i> method that changed the text 
                         of a button. This method was only used on one screen, but we still included it as a method to follow our modular design principle.
                     </p>
@@ -89,13 +87,14 @@
                             <li>Direction - orientation of the arrow (left, right, up, down)</li>
                             <li>Note Time - absolute time when the arrow should be pressed</li>
                         </ul>
-
+                        
                         The arrow class had draw and update methods, which we will discuss in the Views and Controllers sections. It also had position getters to obtain the x 
                         and y positions of individual arrows. We included a delete method to remove the arrow from the screen. Lastly, we added a format method which returned 
                         relevant information about an arrow (note time, direction) in an easily parsable list format.
                     </p>
-
-                    <p>Here is an example of an arrow.</p>
+                    
+                    <img src = "assets/img/arrow.png" style = "width: 100px; height: 100px; margin: -40px 300px 0px 0px;" align = "right";>
+                    <p>Here is an example of an arrow:</p>
 
                     <h2>Controllers</h2>
 
@@ -138,7 +137,7 @@
                     <p>
                         The Select Controller handled the song selector screen. On this screen, all of the possible songs were displayed, and the user had to select one of them. This 
                         controller was very similar to the Menu Controller, as its main functionality was updating its <i>exitCode</i> attribute, so that the top level script could 
-                        ensure the game startedwith the selected song.
+                        ensure the game started with the selected song.
                     </p>
 
                     <h4>Difficulty Controller</h4>
@@ -163,6 +162,8 @@
                         the bottom. A major component is the timing of the arrows, since arrows reaching the bottom should correspond to beats in the song being player. We created 
                         JSON files that stored this timing information for each song. Below is an example JSON file, with a subset of arrows for space purposes.
                     </p>
+
+                    <img src = "assets/img/exampleJSON.png" style = "width: 400px; height: 400px;">
 
                     <p>
                         The file field stores the MP3 audio file of the song. The BPM field stores the beats per minute in the song. The startTime field is the absolute time 
@@ -215,6 +216,8 @@
                         to submit their name and score to the leaderboard. We used a JSON to store all of the leaderboard data for each song, which is depicted below.
                     </p>
 
+                    <img src = "assets/img/exampleLeaderboard.png" style = "width: 400px; height: 400px;">
+
                     <p>
                         The JSON stored a separate leaderboard for each song. For each song, it stored three letters as the player's name along with their score. 
                         When the game ended, the Done Controller loaded up the leaderboard for the song that the player selected and displayed all the previous scores. 
@@ -223,6 +226,11 @@
                         between letters. Below is an example leaderboard. The leaderboard gets updated right after the player submits their name, and it is automatically 
                         sorted in decreasing order.
                     </p>
+
+                    <img src = "assets/img/exLeaderboard.png" style = "width: 300px; height: 300px;">
+
+                    <br>
+                    <br>
 
                     <h4>Edit Controller</h4>
 
@@ -250,55 +258,43 @@
                         updated these indices as the song progressed, but this made the code more efficient since it didn't loop through every arrow in the list.
                     </p>
 
-                    <h2>Main Script - game.py</h2>
+                    <h2>Main Script</h2>
 
                     <p>
-                        -Instante all controllers
-                        -Transition logic
-                        -Extension: multiplayer mode
+                        We have discussed the models, views, and controllers that we implemented. However, the script <i>game.py</i> is responsible for starting the game 
+                        and coordinates the transitions between screens. First, this script initialized all seven of the controllers. Then, it ran the game until the physical 
+                        quit button was pressed. This process can be modeled as a state machine. There were a total of six states:
 
+                        <ul>
+                            <li>STATE_MENU: Main Menu</li>
+                            <li>STATE_SELECTSCREEN: Song Select</li>
+                            <li>STATE_DIFFICULTY: Difficulty (background image) select</li>
+                            <li>STATE_SINGLEPLAYER: Game running</li>
+                            <li>STATE_EDITOR: Level editor</li>
+                            <li>STATE_DONE: Game finished</li>
+                        </ul>
+
+                        Each state corresponded to its own screen, and was controlled but its own controller. In this script, there was an update method for each state. In this 
+                        method, we called the update method for that state's controller and then checked for the inputs that would require a state transition. For example, 
+                        if the current state was STATE_MENU, then the mupdate method in <i>game.py</i> first called the Menu Controller's update method. Then it checked 
+                        if the player selected any of the three buttons on the menu screen. If the first option, single player, was selected then it started single player 
+                        mode, and if another option was selected then it performed the appropriate steps and state transition.
+                    </p>
+
+                    <p>
+                        Another extension that we implemented was multiplayer mode. We decided to allow the players to decide on one song. The game would start for player 1, 
+                        then there would be a 10 second pause, and then the game would restart for player 2. Finally, the winner would be shown on the Done Controller's screen, 
+                        and the winner would be allowed to upload their score to the leaderboard. To implement this we had to modify the transition logic between STATE_SINGLEPLAYER 
+                        and STATE_DONE. STATE_SINGLEPLAYER was used to run one round of the game, and after it finished we restarted it if the players selected the multiplayer option. 
+                        We chose this implementation instead of creating a separate multiplayer state since it helped keep the number of states concise and didn't introduce unncessary 
+                        complexity. Lastly, we had to save both players scores and compare the two to check which player one. This was calculated by the Done Controller.
                     </p>
 
                 </div>
             </div>
         </div>
         <hr />
-        <!-- Footer-->
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <p class="copyright text-muted">Copyright &copy; Your Website 2021</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
         <!-- Bootstrap core JS-->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>

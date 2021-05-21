@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Clean Blog - Start Bootstrap Theme</title>
+        <title>Software Design</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -19,7 +19,6 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -114,6 +113,64 @@
                     </p>
 
                     <h4>Input Controller</h4>
+
+                    <p>
+                        The input controller handled detecting user inputs, which were mainly the pressure pad inputs. The class had attributes for all four 
+                        directions (left, right, up, down). The type of each attribute was a boolean, so it was <i>True</i> when the input was pressed, and <i>False</i>
+                        otherwise. We also implemented software-side debouncing. To do this, we had attributes that stored the current 
+                        and previous value for each direction. For example, for the left arrow input, we had two attributes: <i>prev_left</i> and <i>curr_left</i>. We defined 
+                        functions that checked if any input pad was pressed (4 total). These functions checked if the current attribute is <i>True</i> and the previous attribute 
+                        is <i>False</i>. It both conditions were <i>True</i>, then the input was pressed. We had more functions that used similar logic to check if inputs 
+                        were released. This class also contained a <i>lightButton</i> method which used a PWM signal to light up the LEDs on the side of the dance pad.
+                    </p>
+
+                    <h4>Menu Controller</h4>
+
+                    <p>
+                        The Menu Controller handled updating the main menu screen based on user inputs. It had three buttons, 'Single Player', 'Multiplayer', and 'Level Editor'. 
+                        When the player selected one of those options, this controller updated its <i>exitCode</i> attribute. We used this same convention in all our controllers 
+                        to transition between screens. The controller would set the attribute based on the button that was selected and then the top level script (<i>game.py</i> which we 
+                        will discuss later) transitioned to the next screen based on the attribute's value.
+                    </p>
+
+                    <h4>Select Controller</h4>
+
+                    <p>
+                        The Select Controller handled the song selector screen. On this screen, all of the possible songs were displayed, and the user had to select one of them. This 
+                        controller was very similar to the Menu Controller, as its main functionality was updating its <i>exitCode</i> attribute, so that the top level script could 
+                        ensure the game startedwith the selected song.
+                    </p>
+
+                    <h4>Difficulty Controller</h4>
+
+                    <p>
+                        The Difficulty Controller handled the difficulty selector screen. This was also very similar to the Menu Controller and Select Controller. The main difference 
+                        was that it prompted the user with a bunch of images along with a yes or no question. If the player selected yes, there would be an animation playing in the background 
+                        while the game was in progress, which was the harder difficulty. If the player selected no, there would be no animation.
+                    </p>
+
+                    <h4>Game Controller</h4>
+
+                    <p>
+                        The Game Controller handled updating the main game screen. This controller was the heart of our project, since it contained the code for the actual game, 
+                        and thus it was the longest file with the most logic. This controller can be broken up into two sections: game setup and gameplay.
+                    </p>
+
+                    <h5>Game Setup</h5>
+
+                    <p>
+                        Parse the song (explain JSON structure), create the stationary/pressed arrows (createArrows function), start music, start timer, initialize score and other display info, initialize
+                        background based on the difficulty, determine how long the game will continue for
+                    </p>
+
+                    <h5>Gameplay</h5>
+
+                    <p>
+                        -Based on user input from the Input Controller, check if the user pressed the correct arrow at the right time
+                            -checkPlayerInput: 3 possibilities, leniency
+                        -Update score and other statistics
+                        -Stop the game after the song finishes (give a few second cooldown before exiting the game screen)
+                    </p>
 
 
                 </div>

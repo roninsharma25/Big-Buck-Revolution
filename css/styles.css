@@ -47,6 +47,11 @@
   box-sizing: border-box;
 }
 
+table tr td {
+  border-right: 1px solid black;
+  color: black
+}
+
 .imgContainer{
   float:left;
 }

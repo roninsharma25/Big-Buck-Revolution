@@ -59,35 +59,10 @@
                             We recreated the video game Dance Dance Revolution (DDR) using the Raspberry Pi. DDR is a rhythm game where the player 
                             uses their feet to press on four pressure pads when prompted by the game screen. The player earns points by pressing the 
                             appropriate pad in rhythm with the song. We will create a dance platform that inputs pressure pad presses to the Raspberry Pi 
-                            and display LEDs underneath the pressure pads. The Raspberry Pi processes user input presses, determine the player’s score, 
-                            and display a game window to prompt the user to press the pressure pads, display the score, and navigate menus. The software of 
-                            the game was be programmed in Python using Pygame.
+                            and outputs colors using displays LEDs on the top and bottom of the platform. The Raspberry Pi processes user input presses, determine the player’s score, 
+                            and displays a game window to prompt the user to press the pressure pads, display the score, and navigate menus. The software of 
+                            the game was programmed in Python using Pygame.
                         </p>
-
-                        <p>
-                            This project is an embedded system. The game runs completely on the Raspberry Pi. The Raspberry Pi is powered by an external 
-                            power supply.
-
-                        </p>
-
-                    <h2>Project Elements</h2>
-
-                    <p>
-                        <ul>
-                            <li>Hardware</li>
-                                <ul>
-                                    <li>Dance Pad</li>
-                                    <li>LED Strips</li>
-                                    <li>Raspberry Pi</li>
-                                </ul>
-                            <li>Software (Python Modules)</li>
-                                <ul>
-                                    <li>PyGame</li>
-                                    <li>Time</li>
-                                    <li>RPi.GPIO</li>
-                                </ul>
-                        </ul>
-                    </p>
 
                     <h2>Project Goals</h2>
 
@@ -108,7 +83,15 @@
 
                     <h4>Hardware Testing</h4>
                     <p>
-
+                        We performed the follwing tests for the hardware:
+                        <ul>
+                            <li>Using a multimeter to test connectivity between one end of a signal wire and its respective contact</li>
+                            <li>Using a multimeter to test connectivity between all four ground contacts</li>
+                            <li>Using a multimeter to test connectivity between the ground contacts and the other end of the ground wire</li>
+                            <li>Using a multimeter to test connectivity between a signal wire and the ground wire when a button is pressed</li>
+                            <li>Detecting GPIO inputs using the button presses</li>
+                            <li>Setting LED colors using GPIO outputs</li>
+                        </ul>
                     </p>
 
                     <h4>Software Testing</h4>
@@ -229,22 +212,67 @@
 
                     <h2>Bill of Materials</h2>
 
-                    <table>
+                    <table style = "border: 1px solid black; padding: 15px;">
                         <tr>
                             <th>Part</th>
                             <th>Cost</th>
                         </tr>
                         <tr>
-                            <td>4' x 8' sheet of 0.5" plywood</td>
-                            <td>$$</td>
+                            <td>4x8x½” birch plywood</td>
+                            <td>$48.86</td>
+                        </tr>
+                        <tr>
+                            <td>2’x4’x⅛” hardboard (MDF) </td>
+                            <td>$5.23
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>½”x¾”x10’ air conditioning foam</td>
+                            <td>$1.98</td>
+                        </tr>
+                        <tr>
+                            <td>50’ 18-2 gauge thermostat wire</td>
+                            <td>$11.69</td>
+                        </tr>
+                        <tr>
+                            <td>14 gauge 25’ red wire</td>
+                            <td>$6.17</td>
+                        </tr>
+                        <tr>
+                            <td>14 gauge 25’ black wire</td>
+                            <td>$6.17</td>
+                        </tr>
+                        <tr>
+                            <td>Construction adhesive</td>
+                            <td>$7.98</td>
+                        </tr>
+                        <tr>
+                            <td>Spray adhesive</td>
+                            <td>$7.98</td>
+                        </tr>
+                        <tr>
+                            <td>2’x4’x¼” MDF</td>
+                            <td>$7.98</td>
+                        </tr>
+                        <tr>
+                            <td>Gorilla duct tape</td>
+                            <td>Had beforehand</td>
+                        </tr>
+                        <tr>
+                            <td>Aluminum foil</td>
+                            <td>Had beforehand</td>
+                        </tr>
+                        <tr>
+                            <td>25’ LED strip (30 LED per meter)</td>
+                            <td>Had beforehand</td>
                         </tr>
                         <tr>
                             <td>Raspberry Pi</td>
-                            <td>-</td>
+                            <td>Lab component</td>
                         </tr>
                         <tr>
-                            <td>LED Strips</td>
-                            <td>$$</td>
+                            <td>Electrical Wires</td>
+                            <td>Lab component</td>
                         </tr>
                     </table>
 
@@ -252,10 +280,6 @@
                     <h2>Code</h2>
 
                     <p>All of our code is located in <a href = "https://github.com/roninsharma25/ECE-5725/">this</a> Github Repository.</p>
-
-                    <h2>References</h2>
-
-                    <p>Blender</p>
 
                 </div>
             </div>

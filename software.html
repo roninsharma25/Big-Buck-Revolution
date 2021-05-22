@@ -58,7 +58,7 @@
                         In our project, we only had one view since we always drew models to the same screen and just varied the position.
                         The controllers updated the game state. We had a controller for each screen and each controller determined which models appeared 
                         on each screen, where they were drawn, and how the player could interact with them. In the following sections, we will explain 
-                        these aspects of our code.
+                        these aspects in more detail.
                     </p>
 
                     <h2>Models</h2>
@@ -68,13 +68,14 @@
                     <h4>Button Model</h4>
 
                     <p>
-                        The button model was used to add interactive buttons to the game. On some screens, players have the option to navigate between different 
-                        options, and each option is a button. For example, on the menu screen, players select the game type, so each game type is a button. In the class, 
-                        for this model, there are attributes for the font, text, and text size. Additionally, when a player hovers over a button, it is highlighted.
+                        The button model was used to add interactive buttons to the game. On some screens, players had the option to navigate between different 
+                        options, and each option was a button. For example, on the menu screen players selected the game type, so each game type was a button. 
+                        In the Button Model class, there were attributes for the font, text, and text size. Additionally, every button was highlighed when a player 
+                        hovered over it, as shown on the right.
                     </p>
                     <img src = "assets/img/highlightedText.png" style = "width: 200px; height: 200px; margin: -215px -200px 0px 0px;" align = "right";>
                     <p>
-                        We have additional attributes that store whether the button is highlighted. The methods <i>setHighlighted</i> and <i>setSelected</i> 
+                        We had additional attributes that stored whether the button was highlighted. The methods <i>setHighlighted</i> and <i>setSelected</i> 
                         updated these attributes. In this class, we also had a draw method, which we will discuss in the Views section. Lastly, we had an 
                         <i>updateText</i> method that changed the text of a button. This method was only used on one screen, but we still included it as a 
                         method to follow our modular design principle.
@@ -120,7 +121,7 @@
                         otherwise. We also implemented software-side debouncing. To do this, we had attributes that stored the current 
                         and previous value for each direction. For example, for the left arrow input, we had two attributes: <i>prev_left</i> and <i>curr_left</i>. We defined 
                         functions that checked if any input pad was pressed (4 total). These functions checked if the current attribute is <i>True</i> and the previous attribute 
-                        is <i>False</i>. It both conditions were <i>True</i>, then the input was pressed. We had more functions that used similar logic to check if inputs 
+                        is <i>False</i>. If both conditions were <i>True</i>, then the input was pressed. We had more functions that used similar logic to check if inputs 
                         were released. This class also contained a <i>lightButton</i> method which used a PWM signal to light up the LEDs on the side of the dance pad.
                     </p>
 
@@ -128,28 +129,30 @@
 
                     <img src = "assets/img/mainMenu.png" style = "width: 250px; height: 250px; margin: 0px -275px 0px 0px;" align = "right";>
                     <p>
-                        The Menu Controller handled updating the main menu screen based on user inputs. It had three buttons, 'Single Player', 'Multiplayer', and 'Level Editor'. 
-                        When the player selected one of those options, this controller updated its <i>exitCode</i> attribute. We used this same convention in all our controllers 
-                        to transition between screens. The controller would set the attribute based on the button that was selected and then the top level script (<i>game.py</i> which we 
-                        will discuss later) transitioned to the next screen based on the attribute's value.
+                        The Menu Controller handled updating the main menu screen based on user inputs. It had three buttons, 'Single Player', 'Multiplayer', and 'Level Editor', which 
+                        are shown on the right. When the player selected one of those options, this controller updated its <i>exitCode</i> attribute. 
+                        We used this same convention in all our controllers to transition between screens. The controller would set the attribute based on the button 
+                        that was selected and then the top level script (<i>game.py</i> which we will discuss later) transitioned to the next screen based on the attribute's value.
                     </p>
 
                     <img src = "assets/img/songSelect.png" style = "width: 250px; height: 250px; margin: 0px 0px 0px -275px;" align = "left";>
                     <h4>Select Controller</h4>
 
                     <p>
-                        The Select Controller handled the song selector screen. On this screen, all of the possible songs were displayed, and the user had to select one of them. This 
-                        controller was very similar to the Menu Controller, as its main functionality was updating its <i>exitCode</i> attribute, so that the top level script could 
-                        ensure the game started with the selected song.
+                        The Select Controller handled the song selector screen. On this screen, all of the possible songs were displayed, as shown on the left, and the user had to 
+                        select one of them. This controller was very similar to the Menu Controller, as its main functionality was updating its <i>exitCode</i> attribute, 
+                        so that the top level script could ensure the game started with the selected song.
                     </p>
 
-                    <img src = "assets/img/difficultySelector.png" style = "width: 250px; height: 250px; margin: 0px -275px 0px 0px;" align = "right";>
+                    <img src = "assets/img/difficultySelector.png" style = "width: 250px; height: 250px; margin: 50px -275px 0px 0px;" align = "right";>
                     <h4>Difficulty Controller</h4>
 
                     <p>
                         The Difficulty Controller handled the difficulty selector screen. This was also very similar to the Menu Controller and Select Controller. The main difference 
-                        was that it prompted the user with a bunch of images along with a yes or no question. If the player selected yes, there would be an animation playing in the background 
-                        while the game was in progress, which was the harder difficulty. If the player selected no, there would be no animation.
+                        was that it prompted the user with a bunch of images along with a yes or no question, as shown on the right. If the player selected yes, 
+                        there would be an animation playing in the background while the game was in progress, which was the harder difficulty. 
+                        If the player selected no, there would be no animation. The animation would be of Big Buck Bunny, who is depicted in each of the four images. He is an 
+                        essential character in the short comedy film created by the Blender Institute.
                     </p>
 
                     <h4>Game Controller</h4>
@@ -163,11 +166,11 @@
 
                     <p>
                         The fundamental aspect of the game is that arrows move down the screen and the player has to hit the corresponding pressure pad when an arrow reaches 
-                        the bottom. A major component is the timing of the arrows, since arrows reaching the bottom should correspond to beats in the song being player. We created 
+                        the bottom. A major component is the timing of the arrows, since arrows reaching the bottom should correspond to beats in the song being played. We created 
                         JSON files that stored this timing information for each song. Below is an example JSON file, with a subset of arrows for space purposes.
                     </p>
 
-                    <img src = "assets/img/exampleJSON.png" style = "width: 400px; height: 400px;">
+                    <img src = "assets/img/exampleJSON.png" style = "width: 400px; height: 400px; margin: 0px 0px 0px 140px;" align = "center">
 
                     <p>
                         The file field stores the MP3 audio file of the song. The BPM field stores the beats per minute in the song. The startTime field is the absolute time 
@@ -196,14 +199,15 @@
                     <img src = "assets/img/challengeEx.png" style = "width: 250px; height: 250px; margin: 150px -250px 0px 0px;" align = "right";>
                     <p>
                         Based on the user input from the Input Controller, the Game Controller checks if the player pressed the correct arrow at the right time. Our implementation 
-                        finds the closest arrow about the bottom of the screen based on the pressure pad. For example, if the player presses the left pressure pad, the Game Controller 
+                        finds the closest arrow above the bottom of the screen based on the pressure pad input. For example, if the player presses the left pressure pad, the Game Controller 
                         will find the closest left arrow above the bottom. If that arrow is within a range off of the center of the stationary arrow, it will be classified as a hit, 
                         and the player will get the maximum number of points. If the arrow is not within the range but is within twice the range, then it will be classified as 
                         almost a hit, so the player will receive a reduced number of points. Otherwise, the player will receive no points. Based on if the arrow is classified as a hit, 
-                        almost hit, or miss, the Game Controller also updates the extra statistics (total hits, total notes, points received, total score). Additionally, we implemented 
+                        almost hit, or miss, the Game Controller also updates the extra statistics (total hits, total notes, points received, total score). 
+                        The easy difficulty is shown on the left and the challenging difficulty is shown on the right. Additionally, we implemented 
                         a multiplier. The multiplier starts at 1 and increments by 0.5 for every arrow that is a hit and increments by 0.25 for every arrow that almost hits. The player's 
                         score increment for each arrow is multiplied by the multiplier. When a player misses an arrow the multiplier is reset to 1, so players can achieve higher scores 
-                        by stringing together several hits (or almost hits) in a row. Following the classification of hit/almost hit/miss, the arrow is deleted. Here are all 
+                        by stringing together several hits (or almost hits) in a row. Following the arrow accuracy classification, the arrow is deleted. Here are all 
                         the statistics displayed during the game.
                     </p>
                     
@@ -212,7 +216,7 @@
                     <p>
                         At this point, the Game Controller notifies the Input Controller to display a certain color on the dance pad's LEDs. 
                         Green represents a hit, blue represents an almost hit, and red represents a miss. Lastly, the Game Controller sets its <i>done</i> attribute 
-                        to be <i>True</i> after the last arrow hits the bottom, signalling the end of the game. Similar to the previous controllers, the main script, <i>game.py</i> 
+                        to be <i>True</i> after the last arrow hits the bottom, signalling the end of the game. Similar to the previous controllers, the main script, <i>game.py</i>, 
                         constantly reads this attribute and switches to the next stage of the game accordingly.
 
                     </p>
@@ -224,12 +228,12 @@
                         to submit their name and score to the leaderboard. We used a JSON to store all of the leaderboard data for each song, which is depicted below.
                     </p>
 
-                    <img src = "assets/img/exampleLeaderboard.png" style = "width: 400px; height: 400px;">
+                    <img src = "assets/img/exampleLeaderboard.png" style = "width: 400px; height: 400px; margin: 0px 0px 0px 140px;" align = "center">
 
                     <p>
                         The JSON stored a separate leaderboard for each song. For each song, it stored three letters as the player's name along with their score. 
                         When the game ended, the Done Controller loaded up the leaderboard for the song that the player selected and displayed all the previous scores. 
-                        We used one button, which started as 'Enter Name', for allowing the player to submit their name and score to the leaderboard. The player was able 
+                        We used one button, which started as 'Enter Name', to allow the player to submit their name and score to the leaderboard. The player was able 
                         to use the left and right pressure pad inputs to move between the three letters, and was able to use the up and down pressure pad inputs to cycle 
                         between letters. Below is an example leaderboard. The leaderboard gets updated right after the player submits their name, and it is automatically 
                         sorted in decreasing order.
@@ -249,7 +253,7 @@
                     <img src = "assets/img/levelEditor.png" style = "width: 250px; height: 250px; margin: 50px -250px 0px 0px;" align = "right";>
                     <p>
                         The Edit Controller handled the level editor. We created some levels ourselves, but also implemented a level editor to allow the player to create 
-                        levels. This controller streamed the arrows the player was inputting. Specifically, it played the song the user selected, then the user was allowed 
+                        levels. This controller streamed the arrows the player inputted, as shown on the right. Specifically, it played the song the user selected, then the user was allowed 
                         to use the pressure pads to specify arrows. The Edit Controller saved the absolute times of each of these arrows along with the direction. Once the 
                         song ended, the arrows were played back, with the song, so that the player could assess if there needed to be any changes to the level. The arrows 
                         were saved to a JSON so the player had the freedom to edit the JSON file, specifically some arrow's note times, if they felt that some times 
@@ -268,7 +272,7 @@
                     <p>
                         One optimization that we implemented was the number of arrows we drew during the game. We had one list of arrows, but it was fairly computationally 
                         expensive to constantly draw each of these arrows. Therefore, we stored the indices of the first and last arrow that we wanted to draw. We constantly 
-                        updated these indices as the song progressed, but this made the code more efficient since it didn't loop through every arrow in the list.
+                        updated these indices as the song progressed and this made the code more efficient since it didn't loop through every arrow in the list.
                     </p>
 
                     <h2>Main Script</h2>
@@ -287,20 +291,23 @@
                             <li>STATE_DONE: Game finished</li>
                         </ul>
 
-                        Each state corresponded to its own screen, and was controlled but its own controller. In this script, there was an update method for each state. In this 
+                        <img src = "assets/img/FSM.png" style = "width: 800px; height: 400px; margin: 0px 0px 0px -50px;" align = "center">
+
+                        Each state corresponded to its own screen, and was controlled by its own controller. In this script, there was an update method for each state. In this 
                         method, we called the update method for that state's controller and then checked for the inputs that would require a state transition. For example, 
-                        if the current state was STATE_MENU, then the mupdate method in <i>game.py</i> first called the Menu Controller's update method. Then it checked 
-                        if the player selected any of the three buttons on the menu screen. If the first option, single player, was selected then it started single player 
+                        if the current state was STATE_MENU, then the update method in <i>game.py</i> first called the Menu Controller's update method. Then it checked 
+                        if the player selected any of the three buttons on the menu screen. If the first option, single player, was selected, it started single player 
                         mode, and if another option was selected then it performed the appropriate steps and state transition.
                     </p>
 
                     <p>
-                        Another extension that we implemented was multiplayer mode. We decided to allow the players to decide on one song. The game would start for player 1, 
+                        Another extension that we implemented was multiplayer mode. We decided to allow the players to decide on one song. The game would run normally for player 1, 
                         then there would be a 10 second pause, and then the game would restart for player 2. Finally, the winner would be shown on the Done Controller's screen, 
                         and the winner would be allowed to upload their score to the leaderboard. To implement this we had to modify the transition logic between STATE_SINGLEPLAYER 
-                        and STATE_DONE. STATE_SINGLEPLAYER was used to run one round of the game, and after it finished we restarted it if the players selected the multiplayer option. 
+                        and STATE_DONE. STATE_SINGLEPLAYER was used to run one round of the game, and after it finished we restarted it if the player selected the multiplayer option. 
                         We chose this implementation instead of creating a separate multiplayer state since it helped keep the number of states concise and didn't introduce unncessary 
-                        complexity. Lastly, we had to save both players scores and compare the two to check which player one. This was calculated by the Done Controller.
+                        complexity. Lastly, we had to save both players scores and compare the two to check which player one. This was calculated by the Done Controller, with an example 
+                        shown below.
                     </p>
 
                     <img src = "assets/img/winnerEx.png" style = "width: 300px; height: 300px; margin: 0px 0px 0px 175px;" align = "center">

@@ -113,14 +113,48 @@
 
                     <h4>Software Testing</h4>
                     <p>
+                        We performed the majority of the software testing without using the physical dance pad. We used the Raspberry 
+                        Pi and mapped its onboard buttons to the pressure pad inputs. This made testing easier and faster.
+                    </p>
 
+                    <p>
+                        First, we tested if we had implemented software-side debouncing correctly. We experimented with pressing buttons 
+                        sequentially at different rates and varied which buttons we pressed. We also varied how long we held the button 
+                        down to ensure only one input press was detected for longer presses.
+
+                        <br>
+                        <br>
+
+                        Next, we verified the screen transitions. We tried navigating through every possible screen pattern and verified that we 
+                        could also go backwards (ex: from the song select screen back to the main menu screen). We wanted to make sure that all 
+                        the data was passed correctly between screens.
+
+                        <br>
+                        <br>
+   
+                        Next, we tested the functionality of individual screens. We started with the select screen and verified that we could select 
+                        every song and that the correct song played during the game. Then we tested both difficulties and made sure the correct background 
+                        was displayed during the game. We spent the majority of the time testing the actual gameplay. We tried different input 
+                        combinations and verified that the statistics (score, multiplier, etc.) incremented correctly. We did this for all songs, which 
+                        allowed us to test our embedded system with differen JSONs. We also tested both single and multiplayer modes. For multiplayer mode, 
+                        we tested that the winner was displayed correctly based on each player's score. For the level editor, we tried creating JSONs 
+                        with a few arrows, many arrows, all arrows having the same direction, and all arrows having different directions. 
+                        Again, we tried creating levels for each of the possible songs. Lastly, we tested the leaderboard update process. We ensured that 
+                        a new score lower than all scores, a new score higher than all scores, and a new score in the middle of the previous scores could 
+                        all be added to the leaderboard.
+
+                        <br>
+                        <br>
+                        
+                        Finally, we tested the software using the physical dance pad by just playing the game. We tested all songs and all features in 
+                        the same way that we described above.
                     </p>
                     
                     <h2>Final Deliverable</h2>
 
-                    <h4>Video Demonstration</h4>
+                    <h4>Video Advertisement</h4>
 
-                    <iframe width="420" height="315" src="https://www.youtube.com/embed/0jTzFAl1kPk"></iframe>
+                    <iframe width="640" height="480" src="https://www.youtube.com/embed/0jTzFAl1kPk"></iframe>
 
                     <br>
                     <br>
@@ -218,6 +252,10 @@
                     <h2>Code</h2>
 
                     <p>All of our code is located in <a href = "https://github.com/roninsharma25/ECE-5725/">this</a> Github Repository.</p>
+
+                    <h2>References</h2>
+
+                    <p>Blender</p>
 
                 </div>
             </div>

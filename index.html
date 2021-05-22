@@ -46,7 +46,7 @@
                             <h1>Big Buck Revolution</h1>
                             <span class="subheading">A Recreation of Dance Dance Revolution</span>
                             <span class="subheading">Bryce Roth (ber72), Jude Javillo (jij8), Ronin Sharma (rrs234)</span>
-                            <span class="subheading">ECE 5725 | Spring 2021 | Thursday Lab</span>
+                            <span class="subheading">ECE 5725 | May 21, 2021 | Thursday Lab</span>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
-                    <h2>Project Overview</h2>
+                    <h2>Project Objective</h2>
 
                         <p>
                             We recreated the video game Dance Dance Revolution (DDR) using the Raspberry Pi. DDR is a rhythm game where the player 
@@ -81,7 +81,9 @@
                     <h4>Design</h4>
                     <p>
                         We thoroughly describe our hardware and software design methodologies and implementations on their respective pages 
-                        (<a href = "hardware.html">Hardware Design</a>, <a href = "software.html">Software Design</a>).
+                        (<a href = "hardware.html">Hardware Design</a>, <a href = "software.html">Software Design</a>). We had problems with 
+                        the timing aspect of the game. We were able to use the level editor to solve this problem. Also, some of the button pads 
+                        moved as the player pressed down on them. We fixed this issue by duct taping the tops of them.
                     </p>
 
                     <h4>Hardware Testing</h4>
@@ -212,6 +214,20 @@
 
                       }
                       </script>
+                    
+                    <h2>Conclusions and Future Work</h2>
+
+                    <p>
+                        We developed a fully functional rhythm game. It supports single player and multiplayer modes. It also has a level editor.
+
+                        <br>
+                        Future Work
+                        <ul>
+                            <li>Create a second dance pad so that players can play the game simultaneously</li>
+                            <li>Make the dance pad compatible with other rhythm games</li>
+                            <li>Program notes to have longer durations</li>
+                        </ul>
+                    </p>
 
                     <h2>Bill of Materials</h2>
 
@@ -289,6 +305,34 @@
                 <p> Down with the Sickness - Disturbed </p>
                 <p> S.O.M.P. - Skratch'N Snyf</p>
                 <p> You Spin Me Round - Dead Or Alive </p>
+
+                <h2>Contributions</h2>
+                <p>
+                    <i>Bryce</i>
+                    <ul>
+                        <li>Led assembly of dance pad</li>
+                        <li>Wired buttons and LEDs to dance pad</li>
+                        <li>Tested all hardware</li>
+                        <li>Designed jsons for the levels</li>
+                        <li>Assisted with software development</li>
+                    </ul>
+
+                    <i>Jude</i>
+                    <ul>
+                        <li>Created MVC pattern outline</li>
+                        <li>Helped debug main menu, done controller screen</li>
+                        <li>Prototyped dance pad on breadboard</li>
+                        <li>Assisted with dance pad assembly</li>
+                    </ul>
+
+                    <i>Ronin</i>
+                    <ul>
+                        <li>Started implementation for single player, multiplayer, and level editor modes</li>
+                        <li>Implemented select screen, difficulty screen, and done controller screen</li>
+                        <li>Tested software using a Raspberry Pi</li>
+                        <li>Created website template and worked on the home, about, and software design pages</li>
+                    </ul>
+                </p>
 
                 </div>
             </div>

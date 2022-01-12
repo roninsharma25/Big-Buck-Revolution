@@ -5,7 +5,7 @@
 # menuController.py: a controller for the menu screen
 
 from models.buttonModel import Button
-from inputController import *
+from controllers.inputController import *
 import pygame
 
 class MenuController():

@@ -5,7 +5,7 @@
 # menuController.py: a controller for the song select screen
 
 from models.buttonModel import Button
-from inputController import *
+from controllers.inputController import *
 from constants import *
 import pygame
 

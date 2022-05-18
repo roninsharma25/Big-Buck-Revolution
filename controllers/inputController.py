@@ -5,7 +5,7 @@
 # inputController.py: a controller that processes inputs
 
 from constants import *
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import pygame
 
 #def quit_callback(channel):
@@ -23,7 +23,7 @@ class InputController():
         """
         Instantiates a new input controller and sets up GPIO Pins
         """
-        GPIO.setmode(GPIO.BCM)
+        #GPIO.setmode(GPIO.BCM)
         
         # Set up quit button
         #GPIO.setup(IN_QUIT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -31,15 +31,15 @@ class InputController():
         #        bouncetime=400)
 
         # Set up pressure pads and back button
-        for input_pin in [IN_LEFT, IN_RIGHT, IN_DOWN, IN_UP, BACK]:
-            GPIO.setup(input_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        #for input_pin in [IN_LEFT, IN_RIGHT, IN_DOWN, IN_UP, BACK]:
+        #    GPIO.setup(input_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
         # Set up LEDs
-        self.pwm = {}
-        for output_pin in OUTPUT_PINS:
-            GPIO.setup(output_pin, GPIO.OUT)
-            self.pwm[output_pin] = GPIO.PWM(output_pin, 100)
-            self.pwm[output_pin].start(0)
+        #self.pwm = {}
+        #for output_pin in OUTPUT_PINS:
+        #    GPIO.setup(output_pin, GPIO.OUT)
+        #    self.pwm[output_pin] = GPIO.PWM(output_pin, 100)
+        #    self.pwm[output_pin].start(0)
 
         self.prev_left = False
         self.curr_left = False
@@ -72,11 +72,17 @@ class InputController():
         self.prev_pos = self.curr_pos
 
         # Read current actions
-        self.curr_left = GPIO.input(IN_LEFT) == GPIO.LOW
-        self.curr_right = GPIO.input(IN_RIGHT) == GPIO.LOW
-        self.curr_down = GPIO.input(IN_DOWN) == GPIO.LOW
-        self.curr_up = GPIO.input(IN_UP) == GPIO.LOW
-        self.curr_back = GPIO.input(BACK) == GPIO.LOW
+        #self.curr_left = GPIO.input(IN_LEFT) == GPIO.LOW
+        #self.curr_right = GPIO.input(IN_RIGHT) == GPIO.LOW
+        #self.curr_down = GPIO.input(IN_DOWN) == GPIO.LOW
+        #self.curr_up = GPIO.input(IN_UP) == GPIO.LOW
+        #self.curr_back = GPIO.input(BACK) == GPIO.LOW
+        #print('UPDATE')
+        self.curr_left = False
+        self.curr_right = False
+        self.curr_down = False
+        self.curr_up = False
+        self.curr_back = False
         self.curr_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type is pygame.MOUSEBUTTONDOWN:
@@ -84,15 +90,23 @@ class InputController():
             elif event.type is pygame.MOUSEBUTTONUP:
                 self.curr_mouse = False
             
+            if event.type == pygame.KEYDOWN:
+                self.curr_left = event.key == pygame.K_LEFT
+                self.curr_right = event.key == pygame.K_RIGHT
+                self.curr_down = event.key == pygame.K_DOWN
+                self.curr_up = event.key == pygame.K_UP
+                self.curr_back = event.key == pygame.K_b # b
+            
         if self.pressed_left():
             self.index += 1
-            self.lightButton("left", COLORS[self.index % len(COLORS)])
+            #self.lightButton("left", COLORS[self.index % len(COLORS)])
 
     def terminate(self):
-        for output_pin in OUTPUT_PINS:
-            GPIO.output(output_pin, GPIO.LOW)
-        GPIO.cleanup()
-        
+        #for output_pin in OUTPUT_PINS:
+        #    GPIO.output(output_pin, GPIO.LOW)
+        #GPIO.cleanup()
+        pass
+
 
     def pressed_left(self):
         return self.curr_left and not self.prev_left
@@ -150,5 +164,6 @@ class InputController():
             #print(color)
             pass
         else:
-            for i in range(3):
-                self.pwm[LED_BUTTONS["left"][i]].ChangeDutyCycle(LED_COLORS[color][i])
+            #for i in range(3):
+            #    self.pwm[LED_BUTTONS["left"][i]].ChangeDutyCycle(LED_COLORS[color][i])
+            pass

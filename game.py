@@ -13,7 +13,7 @@ from controllers.selectController import SelectController
 from controllers.difficultyController import DifficultyController
 from controllers.editController import EditController
 from controllers.doneController import DoneController
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import pygame
 import time
 import os
